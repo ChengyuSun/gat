@@ -42,9 +42,9 @@ if args.cuda:
 
 # Load data
 adj, features, labels, idx_train, idx_val, idx_test = load_data()
-print('adj:',adj)
-print('features:',features)
-print('labels:',labels)
+print('adj:',adj.size())
+print('features:',features.size())
+print('labels:',labels.size())
 # Model and optimizer
 if args.sparse:
     model = SpGAT(nfeat=features.shape[1], 
