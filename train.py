@@ -30,6 +30,7 @@ parser.add_argument('--nb_heads', type=int, default=8, help='Number of head atte
 parser.add_argument('--dropout', type=float, default=0.6, help='Dropout rate (1 - keep probability).')
 parser.add_argument('--alpha', type=float, default=0.2, help='Alpha for the leaky_relu.')
 parser.add_argument('--patience', type=int, default=100, help='Patience')
+parser.add_argument('--entropy', type=bool, default=True, help='If need entropy')
 
 args = parser.parse_args()
 args.cuda = not args.no_cuda and torch.cuda.is_available()
@@ -52,8 +53,11 @@ for line in feature_file:
     entropy_att.append(float(line))
 entropy_att=torch.Tensor(entropy_att).view(len(entropy_att),1)
 
-features=torch.cat((features,entropy_att),1)
-print('features:',features.size())
+if args.entropy:
+    features=torch.cat((features,entropy_att),1)
+    print('features:',features.size())
+
+
 # Model and optimizer
 if args.sparse:
     model = SpGAT(nfeat=features.shape[1], 
