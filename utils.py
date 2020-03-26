@@ -24,13 +24,13 @@ def load_data(path="./data/cora/", dataset="cora"):
     edges_unordered = np.genfromtxt("{}{}.cites".format(path, dataset), dtype=np.int32)
     edges = np.array(list(map(idx_map.get, edges_unordered.flatten())), dtype=np.int32).reshape(edges_unordered.shape)
     adj = sp.coo_matrix((np.ones(edges.shape[0]), (edges[:, 0], edges[:, 1])), shape=(labels.shape[0], labels.shape[0]), dtype=np.float32)
-
     # build symmetric adjacency matrix
     adj = adj + adj.T.multiply(adj.T > adj) - adj.multiply(adj.T > adj)
-
+    print('adj_symmetric:', adj)
+    #np.savetxt('./data/cora/adj.csv',torch.FloatTensor(np.array(adj.todense())) , delimiter=",", fmt='%s')
     features = normalize_features(features)
     adj = normalize_adj(adj + sp.eye(adj.shape[0]))
-
+    print('adj_normalize_adj:', adj)
     idx_train = range(140)
     idx_val = range(200, 500)
     idx_test = range(500, 1500)
