@@ -18,7 +18,7 @@ def get_Amount_of_Motif():
 
 def read_data(i,filename):
     array = open(filename).readlines()
-    N = int(array[i])
+    N = int(array[i*2-2])
     return N
 
 def devide(N):
@@ -68,7 +68,7 @@ def calEntropy(n,N,dN):
 
 
 def graphEntropy(motifNumber,nodN):
-    dN = read_data(nodN - 1, '../entropy/data2/devide_347_Nodes.csv')
+    dN = read_data(nodN - 1, './data2/devide_2708_Nodes.csv')
     return calEntropy(motifNumber,nodN,dN)
 
 

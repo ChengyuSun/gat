@@ -1,5 +1,5 @@
 import csv
-Nn=347
+Nn=2708
 def devide(N):
     n = [[0] * N for i in range(0, N)]
     for i in range(N):

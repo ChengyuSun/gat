@@ -7,7 +7,7 @@ from entropy.countedge import countEdge
 from entropy.edge_entropy import edgeEntropy
 
 
-def writeEdgeEntropy(graphfile):
+def writeNodeEntropy(graphfile):
     if graphfile.endswith(".xlsx"):
         graphfile=utils.translata_xlsx_to_csv(graphfile)
         print('转变格式成功')

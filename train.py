@@ -22,7 +22,7 @@ parser.add_argument('--no-cuda', action='store_true', default=True, help='Disabl
 parser.add_argument('--fastmode', action='store_true', default=False, help='Validate during training pass.')
 parser.add_argument('--sparse', action='store_true', default=False, help='GAT with sparse version or not.')
 parser.add_argument('--seed', type=int, default=72, help='Random seed.')
-parser.add_argument('--epochs', type=int, default=10000, help='Number of epochs to train.')
+parser.add_argument('--epochs', type=int, default=200, help='Number of epochs to train.')
 parser.add_argument('--lr', type=float, default=0.005, help='Initial learning rate.')
 parser.add_argument('--weight_decay', type=float, default=5e-4, help='Weight decay (L2 loss on parameters).')
 parser.add_argument('--hidden', type=int, default=8, help='Number of hidden units.')
@@ -45,6 +45,15 @@ adj, features, labels, idx_train, idx_val, idx_test = load_data()
 print('adj:',adj.size())
 print('features:',features.size())
 print('labels:',labels.size())
+
+entropy_att=[]
+feature_file = open('./entropy/node_entropy', "r").readlines()
+for line in feature_file:
+    entropy_att.append(float(line))
+entropy_att=torch.Tensor(entropy_att).view(len(entropy_att),1)
+
+features=torch.cat((features,entropy_att),1)
+print('features:',features.size())
 # Model and optimizer
 if args.sparse:
     model = SpGAT(nfeat=features.shape[1], 
