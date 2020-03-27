@@ -86,7 +86,8 @@ def count_chain(A,N,len,motif,node_motifs_list):
             for j in stack:
                 node_motifs_list[j]+=str(motif)
     #print('chain: {}  has {}'.format(motif,n))
-    return n//2
+    #chain都被计算了两次，头尾各一次
+    return n
 
 
 def count_triangle(A,N,motif,node_motifs_list):
@@ -167,7 +168,7 @@ A=np.array(A)
 nodN=len(A)
 count_motifs,node_motifs=countMotifs(A,nodN)
 save_list('./count_motifs',count_motifs)
-save_list('node_motifs',node_motifs)
+save_list('./node_motifs',node_motifs)
 graph_entropy=graphEntropy(count_motifs,nodN)
 save_list('./graph_entropy',graph_entropy)
 node_entropy=nodeEntropy(graph_entropy,node_motifs,count_motifs)
