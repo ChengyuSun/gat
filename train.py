@@ -75,7 +75,7 @@ if args.entropy==1:
 
 
 # Model and optimizer
-if args.spars:
+if args.sparse:
     model = SpGAT(nfeat=features.shape[1], 
                 nhid=args.hidden, 
                 nclass=int(labels.max()) + 1, 
