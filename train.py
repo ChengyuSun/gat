@@ -18,7 +18,7 @@ from models import GAT, SpGAT
 
 # Training settings
 parser = argparse.ArgumentParser()
-parser.add_argument('--no-cuda', action='store_true', default=True, help='Disables CUDA training.')
+#parser.add_argument('--no-cuda', action='store_true', default=True, help='Disables CUDA training.')
 parser.add_argument('--fastmode', action='store_true', default=False, help='Validate during training pass.')
 parser.add_argument('--sparse', action='store_true', default=False, help='GAT with sparse version or not.')
 parser.add_argument('--seed', type=int, default=72, help='Random seed.')
@@ -30,16 +30,25 @@ parser.add_argument('--nb_heads', type=int, default=8, help='Number of head atte
 parser.add_argument('--dropout', type=float, default=0.6, help='Dropout rate (1 - keep probability).')
 parser.add_argument('--alpha', type=float, default=0.2, help='Alpha for the leaky_relu.')
 parser.add_argument('--patience', type=int, default=100, help='Patience')
-parser.add_argument('--entropy', type=bool, default=True, help='If need entropy')
+parser.add_argument('--entropy', type=int, default=0, help='If need entropy')
+parser.add_argument('--gpu', type=int, default=-1, help='-1 for cpu')
 
 args = parser.parse_args()
-args.cuda = not args.no_cuda and torch.cuda.is_available()
+#args.cuda = not args.no_cuda and torch.cuda.is_available()
+
+if args.gpu < 0:
+    cuda = False
+else:
+    cuda = True
+    torch.cuda.set_device(args.gpu)
 
 random.seed(args.seed)
 np.random.seed(args.seed)
 torch.manual_seed(args.seed)
-if args.cuda:
-    torch.cuda.manual_seed(args.seed)
+# if args.cuda:
+#     torch.cuda.manual_seed(args.seed)
+
+
 
 # Load data
 adj, features, labels, idx_train, idx_val, idx_test = load_data()
@@ -47,19 +56,26 @@ print('adj:',adj.size())
 print('features:',features.size())
 print('labels:',labels.size())
 
+# list = features.numpy().tolist()
+# with open('./feature.txt', 'w') as file_object:
+#     for item in list:
+#         file_object.write(str(item) + '\n')
+
+
 entropy_att=[]
 feature_file = open('./entropy/node_entropy', "r").readlines()
 for line in feature_file:
     entropy_att.append(float(line))
 entropy_att=torch.Tensor(entropy_att).view(len(entropy_att),1)
 
-if args.entropy:
+
+if args.entropy==1:
     features=torch.cat((features,entropy_att),1)
-    print('features:',features.size())
+    print('features with entropy:',features.size())
 
 
 # Model and optimizer
-if args.sparse:
+if args.spars:
     model = SpGAT(nfeat=features.shape[1], 
                 nhid=args.hidden, 
                 nclass=int(labels.max()) + 1, 
@@ -77,7 +93,7 @@ optimizer = optim.Adam(model.parameters(),
                        lr=args.lr, 
                        weight_decay=args.weight_decay)
 
-if args.cuda:
+if cuda:
     model.cuda()
     features = features.cuda()
     adj = adj.cuda()
