@@ -109,8 +109,7 @@ def train(epoch):
     t = time.time()
     model.train()
     optimizer.zero_grad()
-    with torch.no_grad():
-        output = model(features, adj)
+    output = model(features, adj)
     loss_train = F.nll_loss(output[idx_train], labels[idx_train])
     acc_train = accuracy(output[idx_train], labels[idx_train])
     loss_train.backward()
