@@ -45,7 +45,7 @@ def test_forward(input, adj,w,a):
         return attention
 
 for k in range(8):
-    temp_attention = test_forward(features,adj,w_list[k],a_list[k])
+    temp_attention = test_forward(features,adj,w_list[k].cuda(),a_list[k].cuda())
     list = temp_attention.numpy().tolist()
     print('temp_attention_',temp_attention.size())
     filename='./attention_'+str(k)+'.txt'
