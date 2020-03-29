@@ -23,29 +23,29 @@ class GraphAttentionLayer(nn.Module):
         nn.init.xavier_uniform_(self.a.data, gain=1.414)
 
         self.leakyrelu = nn.LeakyReLU(self.alpha)
-
+        self.attention=torch.ones()
     def forward(self, input, adj):
-        print('input:',input.size())
+
         h = torch.mm(input, self.W)
-        print('self.W:',self.W.size())
-        print('h:',h.size())
         N = h.size()[0]
 
         a_input = torch.cat([h.repeat(1, N).view(N * N, -1), h.repeat(N, 1)], dim=1).view(N, -1, 2 * self.out_features)
-        print('a_inpt:',a_input.size())
+
         e = self.leakyrelu(torch.matmul(a_input, self.a).squeeze(2))
-        print('e:',e.size())
+
         zero_vec = -9e15*torch.ones_like(e)
-        attention = torch.where(adj > 0, e, zero_vec)
-        attention = F.softmax(attention, dim=1)
-        attention = F.dropout(attention, self.dropout, training=self.training)
-        print('attention:',attention.size())
-        h_prime = torch.matmul(attention, h)
-        print('h_prime:',h_prime.size())
+        self.attention = torch.where(adj > 0, e, zero_vec)
+        self.attention = F.softmax(self.attention, dim=1)
+        self.attention = F.dropout(self.attention, self.dropout, training=self.training)
+
+        h_prime = torch.matmul(self.attention, h)
         if self.concat:
             return F.elu(h_prime)
         else:
             return h_prime
+
+    def show_attention(self):
+        return self.attention
 
     def __repr__(self):
         return self.__class__.__name__ + ' (' + str(self.in_features) + ' -> ' + str(self.out_features) + ')'
