@@ -16,6 +16,7 @@ from torch.autograd import Variable
 from utils import load_data, accuracy
 from models import GAT, SpGAT
 
+torch.cuda.set_device(1)
 
 model = GAT(nfeat=1433,
                 nhid=8,
