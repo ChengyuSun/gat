@@ -6,7 +6,6 @@ from layers import GraphAttentionLayer, SpGraphAttentionLayer
 
 class GAT(nn.Module):
     def __init__(self, nfeat, nhid, nclass, dropout, alpha, nheads):
-        print(nfeat, nhid, nclass, dropout, alpha, nheads)
         """Dense version of GAT."""
         super(GAT, self).__init__()
         self.dropout = dropout
@@ -24,16 +23,6 @@ class GAT(nn.Module):
         x = F.elu(self.out_att(x, adj))
         return F.log_softmax(x, dim=1)
 
-    # def save_attention(self):
-    #     for i, attention in enumerate(self.attentions):
-    #         list = attention.get_attention().numpy().tolist()
-    #         with open('./node_feature.txt', 'w') as file_object:
-    #             for line in list:
-    #                 for item in line:
-    #                     file_object.write(str(item) + ',')
-    #                 file_object.write('\n')
-    #
-    #     return attentions
     def show(self):
         w_list=[]
         a_list=[]

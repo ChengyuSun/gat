@@ -56,12 +56,12 @@ print('adj:',adj.size())
 print('features:',features.size())
 print('labels:',labels.size())
 
-list = features.numpy().tolist()
-with open('./node_feature.txt', 'w') as file_object:
-    for line in list:
-        for item in line:
-            file_object.write(str(item) + ',')
-        file_object.write('\n')
+# list = features.numpy().tolist()
+# with open('./node_feature.txt', 'w') as file_object:
+#     for line in list:
+#         for item in line:
+#             file_object.write(str(item) + ',')
+#         file_object.write('\n')
 
 
 entropy_att=[]
