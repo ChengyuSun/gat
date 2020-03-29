@@ -23,7 +23,6 @@ class GraphAttentionLayer(nn.Module):
         nn.init.xavier_uniform_(self.a.data, gain=1.414)
 
         self.leakyrelu = nn.LeakyReLU(self.alpha)
-        self.attention=torch.ones(1,1)
     def forward(self, input, adj):
 
         h = torch.mm(input, self.W)
@@ -34,18 +33,16 @@ class GraphAttentionLayer(nn.Module):
         e = self.leakyrelu(torch.matmul(a_input, self.a).squeeze(2))
 
         zero_vec = -9e15*torch.ones_like(e)
-        self.attention = torch.where(adj > 0, e, zero_vec)
-        self.attention = F.softmax(self.attention, dim=1)
-        self.attention = F.dropout(self.attention, self.dropout, training=self.training)
+        attention = torch.where(adj > 0, e, zero_vec)
+        attention = F.softmax(attention, dim=1)
+        attention = F.dropout(attention, self.dropout, training=self.training)
 
-        h_prime = torch.matmul(self.attention, h)
+        h_prime = torch.matmul(attention, h)
         if self.concat:
             return F.elu(h_prime)
         else:
             return h_prime
 
-    def show_attention(self):
-        return self.attention
 
     def __repr__(self):
         return self.__class__.__name__ + ' (' + str(self.in_features) + ' -> ' + str(self.out_features) + ')'

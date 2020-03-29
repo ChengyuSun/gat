@@ -24,7 +24,10 @@ model = GAT(nfeat=1433,
                 nheads=8,
                 alpha=0.2)
 model.load_state_dict(torch.load('299.pkl'))
-list=model.show()
-print(len(list))
-for i in list:
-    print(i.size())
+w_list,a_list=model.show()
+print('w_list:',len(w_list))
+for i in w_list:
+    print(i)
+print('a_list',len(a_list))
+for j in a_list:
+    print(j)

@@ -24,14 +24,23 @@ class GAT(nn.Module):
         x = F.elu(self.out_att(x, adj))
         return F.log_softmax(x, dim=1)
 
+    # def save_attention(self):
+    #     for i, attention in enumerate(self.attentions):
+    #         list = attention.get_attention().numpy().tolist()
+    #         with open('./node_feature.txt', 'w') as file_object:
+    #             for line in list:
+    #                 for item in line:
+    #                     file_object.write(str(item) + ',')
+    #                 file_object.write('\n')
+    #
+    #     return attentions
     def show(self):
-        attentions=[]
+        w_list=[]
+        a_list=[]
         for i, attention in enumerate(self.attentions):
-            print(i, attention)
-            attentions.append(attention.show_attention())
-
-        return attentions
-
+            w_list.append(attention.W)
+            a_list.append(attention.a)
+        return w_list,a_list
 
 class SpGAT(nn.Module):
     def __init__(self, nfeat, nhid, nclass, dropout, alpha, nheads):
