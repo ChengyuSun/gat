@@ -18,6 +18,7 @@ def get_Amount_of_Motif():
 
 def read_data(i,filename):
     array = open(filename).readlines()
+    #todo
     N = int(array[i*2-2])
     return N
 
