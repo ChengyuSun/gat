@@ -28,7 +28,7 @@ def load_data(path="./data/cora/", dataset="cora"):
     adj = adj + adj.T.multiply(adj.T > adj) - adj.multiply(adj.T > adj)
     #print('adj_symmetric:', adj)
     #np.savetxt('./data/cora/adj.csv',np.array(adj.todense()) , delimiter=",", fmt='%s')
-    features = normalize_features(features)
+    #features = normalize_features(features)
     adj = normalize_adj(adj + sp.eye(adj.shape[0]))
     #print('adj_normalize_adj:', adj)
     idx_train = range(140)
