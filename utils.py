@@ -52,9 +52,14 @@ def load_data(path="./data/cora/", dataset="cora"):
     val_idx = train_idx[:len(train_idx) // 5]
     train_idx = train_idx[len(train_idx) // 5:]
 
+
     train_idx=torch.LongTensor(train_idx)
+    print('train_idx:',train_idx.size())
     val_idx=torch.LongTensor(val_idx)
+    print('val_idx:',val_idx.size())
     test_idx = torch.LongTensor(test_idx)
+    print('test_idx:',test_idx.size())
+
 
     return adj, features, labels, train_idx, val_idx, test_idx
 
