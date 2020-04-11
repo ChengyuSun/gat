@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc9593e7-4751-45cd-88f2-341a1cc048ee" name="Default Changelist" comment="0411-entropy-attention">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="cc9593e7-4751-45cd-88f2-341a1cc048ee" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="174" column="1" lean-forward="true" selection-start-line="174" selection-start-column="1" selection-end-line="174" selection-end-column="1" />
+            <state relative-caret-position="256">
+              <caret line="180" lean-forward="true" selection-start-line="180" selection-end-line="180" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -33,11 +31,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="82" column="103" lean-forward="true" selection-start-line="82" selection-start-column="103" selection-end-line="82" selection-end-column="103" />
+            <state relative-caret-position="356">
+              <caret line="82" column="105" lean-forward="true" selection-start-line="82" selection-start-column="105" selection-end-line="82" selection-end-column="105" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -115,8 +113,8 @@
         <option value="$PROJECT_DIR$/read_file.py" />
         <option value="$PROJECT_DIR$/models.py" />
         <option value="$PROJECT_DIR$/layers.py" />
-        <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/train.py" />
+        <option value="$PROJECT_DIR$/utils.py" />
       </list>
     </option>
   </component>
@@ -330,7 +328,7 @@
       <workItem from="1585625066699" duration="40000" />
       <workItem from="1585629099056" duration="1891000" />
       <workItem from="1586444621313" duration="4125000" />
-      <workItem from="1586569935202" duration="12226000" />
+      <workItem from="1586569935202" duration="13109000" />
     </task>
     <task id="LOCAL-00001" summary="0325尝试运行">
       <created>1585108172623</created>
@@ -577,11 +575,18 @@
       <option name="project" value="LOCAL" />
       <updated>1586596905566</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="0411-ones-attention">
+      <created>1586602091242</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1586602091242</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126076000" />
+    <option name="totallyTimeSpent" value="126959000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -663,7 +668,8 @@
     <MESSAGE value="0330" />
     <MESSAGE value="0410" />
     <MESSAGE value="0411-entropy-attention" />
-    <option name="LAST_COMMIT_MESSAGE" value="0411-entropy-attention" />
+    <MESSAGE value="0411-ones-attention" />
+    <option name="LAST_COMMIT_MESSAGE" value="0411-ones-attention" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/requirements.txt">
@@ -879,6 +885,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="180" lean-forward="true" selection-start-line="180" selection-end-line="180" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -898,20 +914,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="82" column="103" lean-forward="true" selection-start-line="82" selection-start-column="103" selection-end-line="82" selection-end-column="103" />
+        <state relative-caret-position="356">
+          <caret line="82" column="105" lean-forward="true" selection-start-line="82" selection-start-column="105" selection-end-line="82" selection-end-column="105" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="174" column="1" lean-forward="true" selection-start-line="174" selection-start-column="1" selection-end-line="174" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
