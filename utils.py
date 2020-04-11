@@ -75,13 +75,16 @@ def read_entropy_attention_list():
     print('loading entropy as attention...')
     nodN=2708
     edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt', "r").readlines()
-    entropy_attentions_list=[]
+    entropy_attentions_all=[]
     for line in edge_entropy_file:
         vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
-        entropy_attention=[]
-        for item in  vector:
-            entropy_attention.append(item)
-        entropy_attention=torch.from_numpy(np.array(entropy_attention)).view(nodN , nodN)
+        entropy_attentions_all.append(vector)
+
+    entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
+    entropy_attentions_list=[]
+    for i in range(8):
+        entropy_attention=torch.from_numpy(entropy_attentions_all[:,i]).view(nodN,nodN)
+        print('entropy_attention',entropy_attention.size())
         entropy_attentions_list.append(entropy_attention)
     return entropy_attentions_list
 
