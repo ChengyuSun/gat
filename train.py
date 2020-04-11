@@ -56,27 +56,27 @@ print('adj:',adj.size())
 print('features:',features.size())
 print('labels:',labels.size())
 
-list = features.numpy().tolist()
-with open('./node_feature_01.txt', 'w') as file_object:
-    for line in list:
-        for item in line:
-            file_object.write(str(item) + ',')
-        file_object.write('\n')
-
-file_object.close()
-print('done!!!')
-
-
-entropy_att=[]
-feature_file = open('./entropy/node_entropy', "r").readlines()
-for line in feature_file:
-    entropy_att.append(float(line))
-entropy_att=torch.Tensor(entropy_att).view(len(entropy_att),1)
+# list = features.numpy().tolist()
+# with open('./node_feature_01.txt', 'w') as file_object:
+#     for line in list:
+#         for item in line:
+#             file_object.write(str(item) + ',')
+#         file_object.write('\n')
+#
+# file_object.close()
+# print('done!!!')
 
 
-if args.entropy==1:
-    features=torch.cat((features,entropy_att),1)
-    print('features with entropy:',features.size())
+# entropy_att=[]
+# feature_file = open('./entropy/node_entropy', "r").readlines()
+# for line in feature_file:
+#     entropy_att.append(float(line))
+# entropy_att=torch.Tensor(entropy_att).view(len(entropy_att),1)
+
+
+# if args.entropy==1:
+#     features=torch.cat((features,entropy_att),1)
+#     print('features with entropy:',features.size())
 
 
 # Model and optimizer

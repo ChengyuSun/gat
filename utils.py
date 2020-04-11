@@ -28,7 +28,7 @@ def load_data(path="./data/cora/", dataset="cora"):
     adj = adj + adj.T.multiply(adj.T > adj) - adj.multiply(adj.T > adj)
     #print('adj_symmetric:', adj)
     #np.savetxt('./data/cora/adj.csv',np.array(adj.todense()) , delimiter=",", fmt='%s')
-    #features = normalize_features(features)
+    features = normalize_features(features)
     adj = normalize_adj(adj + sp.eye(adj.shape[0]))
     #print('adj_normalize_adj:', adj)
     idx_train = range(140)
@@ -70,4 +70,19 @@ def accuracy(output, labels):
     correct = preds.eq(labels).double()
     correct = correct.sum()
     return correct / len(labels)
+
+def read_entropy_attention_list():
+    print('loading entropy as attention...')
+    nodN=2708
+    edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt', "r").readlines()
+    entropy_attentions_list=[]
+    for line in edge_entropy_file:
+        vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
+        entropy_attention=[]
+        for item in  vector:
+            entropy_attention.append(item)
+        entropy_attention=torch.from_numpy(np.array(entropy_attention)).view(nodN , nodN)
+        entropy_attentions_list.append(entropy_attention)
+    return entropy_attentions_list
+
 

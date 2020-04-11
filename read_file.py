@@ -2,7 +2,7 @@ import numpy as np
 import torch
 import scipy.sparse as sp
 
-idx_features_labels = np.genfromtxt("{}{}.content".format('./data/cora/', 'cora'), dtype=np.dtype(str))
+idx_features_labels = np.genfromtxt("./cora.content", dtype=np.dtype(str))
 features = sp.csr_matrix(idx_features_labels[:, 1:-1], dtype=np.float32)
 features = torch.FloatTensor(np.array(features.todense()))
 
