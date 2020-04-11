@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.sparse as sp
 import torch
+import random
 
 
 def encode_onehot(labels):
@@ -13,7 +14,7 @@ def encode_onehot(labels):
 def load_data(path="./data/cora/", dataset="cora"):
     """Load citation network dataset (cora only for now)"""
     print('Loading {} dataset...'.format(dataset))
-
+    nodN=2708
     idx_features_labels = np.genfromtxt("{}{}.content".format(path, dataset), dtype=np.dtype(str))
     features = sp.csr_matrix(idx_features_labels[:, 1:-1], dtype=np.float32)
     labels = encode_onehot(idx_features_labels[:, -1])
@@ -31,19 +32,31 @@ def load_data(path="./data/cora/", dataset="cora"):
     features = normalize_features(features)
     adj = normalize_adj(adj + sp.eye(adj.shape[0]))
     #print('adj_normalize_adj:', adj)
-    idx_train = range(140)
-    idx_val = range(200, 500)
-    idx_test = range(500, 1500)
+    # idx_train = range(140)
+    # idx_val = range(200, 500)
+    # idx_test = range(500, 1500)
+
+    # idx_train = torch.LongTensor(idx_train)
+    # idx_val = torch.LongTensor(idx_val)
+    # idx_test = torch.LongTensor(idx_test)
 
     adj = torch.FloatTensor(np.array(adj.todense()))
     features = torch.FloatTensor(np.array(features.todense()))
     labels = torch.LongTensor(np.where(labels)[1])
 
-    idx_train = torch.LongTensor(idx_train)
-    idx_val = torch.LongTensor(idx_val)
-    idx_test = torch.LongTensor(idx_test)
 
-    return adj, features, labels, idx_train, idx_val, idx_test
+    random_idx = [i for i in range(nodN)]
+    random.shuffle(random_idx)
+    train_idx = random_idx[nodN // 5:]
+    test_idx = random_idx[:nodN // 5]
+    val_idx = train_idx[:len(train_idx) // 5]
+    train_idx = train_idx[len(train_idx) // 5:]
+
+    train_idx=torch.LongTensor(train_idx)
+    val_idx=torch.LongTensor(val_idx)
+    test_idx = torch.LongTensor(test_idx)
+
+    return adj, features, labels, train_idx, val_idx, test_idx
 
 
 def normalize_adj(mx):
@@ -74,31 +87,32 @@ def accuracy(output, labels):
 def read_entropy_attention_list():
     print('loading entropy as attention...')
     nodN=2708
-    #
-    # edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt', "r").readlines()
-    # entropy_attentions_all=[]
-    # for line in edge_entropy_file:
-    #     vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
-    #     entropy_attentions_all.append(vector)
-    #
-    # entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
-    # entropy_attentions_list=[]
-    # #entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
-    # for i in range(8):
-    #     entropy_attention=torch.from_numpy(entropy_attentions_all[:,i]).float().view(nodN,nodN).cuda()
-    #     #print('entropy_attention',entropy_attention.size())
-    #     entropy_attentions_list.append(entropy_attention)
 
+    edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt', "r").readlines()
+    entropy_attentions_all=[]
+    for line in edge_entropy_file:
+        vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
+        entropy_attentions_all.append(vector)
+
+    entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
     entropy_attentions_list=[]
+    #entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
     for i in range(8):
-        attention=[]
-        filename='../edGNN_entropy/bin/preprocessed_data/cora/attentions/attention_{}.txt'.format(i)
-        attention_file=open(filename,"r").readlines()
-        for line in attention_file:
-            vector3 = [float(x) for x in line.strip('\n').strip(',').split(",")]
-            attention.append(vector3)
-        attention=torch.from_numpy(np.array(attention)).float().view(nodN,nodN).cuda()
-        entropy_attentions_list.append(attention)
+        entropy_attention=torch.from_numpy(entropy_attentions_all[:,i]).float().view(nodN,nodN).cuda()
+        #print('entropy_attention',entropy_attention.size())
+        entropy_attentions_list.append(entropy_attention)
+
+    #
+    # entropy_attentions_list=[]
+    # for i in range(8):
+    #     attention=[]
+    #     filename='../edGNN_entropy/bin/preprocessed_data/cora/attentions/attention_{}.txt'.format(i)
+    #     attention_file=open(filename,"r").readlines()
+    #     for line in attention_file:
+    #         vector3 = [float(x) for x in line.strip('\n').strip(',').split(",")]
+    #         attention.append(vector3)
+    #     attention=torch.from_numpy(np.array(attention)).float().view(nodN,nodN).cuda()
+    #     entropy_attentions_list.append(attention)
 
     return entropy_attentions_list
 
