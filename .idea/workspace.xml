@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc9593e7-4751-45cd-88f2-341a1cc048ee" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
+    <list default="true" id="cc9593e7-4751-45cd-88f2-341a1cc048ee" name="Default Changelist" comment="0411-entropy-attention">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-419">
-              <caret line="27" column="84" lean-forward="true" selection-start-line="27" selection-start-column="84" selection-end-line="27" selection-end-column="84" />
+            <state relative-caret-position="106">
+              <caret line="174" column="1" lean-forward="true" selection-start-line="174" selection-start-column="1" selection-end-line="174" selection-end-column="1" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -36,8 +36,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="83" column="30" lean-forward="true" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
+            <state relative-caret-position="281">
+              <caret line="82" column="103" lean-forward="true" selection-start-line="82" selection-start-column="103" selection-end-line="82" selection-end-column="103" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -66,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/layers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="24" column="43" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
+            <state relative-caret-position="275">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -113,10 +113,10 @@
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/entropy/Entropy.py" />
         <option value="$PROJECT_DIR$/read_file.py" />
-        <option value="$PROJECT_DIR$/layers.py" />
         <option value="$PROJECT_DIR$/models.py" />
-        <option value="$PROJECT_DIR$/train.py" />
+        <option value="$PROJECT_DIR$/layers.py" />
         <option value="$PROJECT_DIR$/utils.py" />
+        <option value="$PROJECT_DIR$/train.py" />
       </list>
     </option>
   </component>
@@ -330,7 +330,7 @@
       <workItem from="1585625066699" duration="40000" />
       <workItem from="1585629099056" duration="1891000" />
       <workItem from="1586444621313" duration="4125000" />
-      <workItem from="1586569935202" duration="10550000" />
+      <workItem from="1586569935202" duration="12226000" />
     </task>
     <task id="LOCAL-00001" summary="0325尝试运行">
       <created>1585108172623</created>
@@ -563,11 +563,25 @@
       <option name="project" value="LOCAL" />
       <updated>1586595305993</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="0411-entropy-attention">
+      <created>1586595616757</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1586595616757</updated>
+    </task>
+    <task id="LOCAL-00035" summary="0411-entropy-attention">
+      <created>1586596905566</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1586596905566</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124400000" />
+    <option name="totallyTimeSpent" value="126076000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -855,16 +869,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-419">
-          <caret line="27" column="84" lean-forward="true" selection-start-line="27" selection-start-column="84" selection-end-line="27" selection-end-column="84" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="356">
@@ -882,22 +886,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils.py">
+    <entry file="file://$PROJECT_DIR$/layers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="83" column="30" lean-forward="true" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
+        <state relative-caret-position="275">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/layers.py">
+    <entry file="file://$PROJECT_DIR$/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="24" column="43" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
+        <state relative-caret-position="281">
+          <caret line="82" column="103" lean-forward="true" selection-start-line="82" selection-start-column="103" selection-end-line="82" selection-end-column="103" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="174" column="1" lean-forward="true" selection-start-line="174" selection-start-column="1" selection-end-line="174" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
