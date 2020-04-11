@@ -82,7 +82,7 @@ def read_entropy_attention_list():
     #
     # entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
     entropy_attentions_list=[]
-    entropy_attentions_all=torch.ones(nodN*nodN,8).numpy()
+    entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
     for i in range(8):
         entropy_attention=torch.from_numpy(entropy_attentions_all[:,i]).float().view(nodN,nodN).cuda()
         #print('entropy_attention',entropy_attention.size())
