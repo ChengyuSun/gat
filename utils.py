@@ -74,20 +74,32 @@ def accuracy(output, labels):
 def read_entropy_attention_list():
     print('loading entropy as attention...')
     nodN=2708
+    #
+    # edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt', "r").readlines()
+    # entropy_attentions_all=[]
+    # for line in edge_entropy_file:
+    #     vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
+    #     entropy_attentions_all.append(vector)
+    #
+    # entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
+    # entropy_attentions_list=[]
+    # #entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
+    # for i in range(8):
+    #     entropy_attention=torch.from_numpy(entropy_attentions_all[:,i]).float().view(nodN,nodN).cuda()
+    #     #print('entropy_attention',entropy_attention.size())
+    #     entropy_attentions_list.append(entropy_attention)
 
-    edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt', "r").readlines()
-    entropy_attentions_all=[]
-    for line in edge_entropy_file:
-        vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
-        entropy_attentions_all.append(vector)
-
-    entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
     entropy_attentions_list=[]
-    #entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
     for i in range(8):
-        entropy_attention=torch.from_numpy(entropy_attentions_all[:,i]).float().view(nodN,nodN).cuda()
-        #print('entropy_attention',entropy_attention.size())
-        entropy_attentions_list.append(entropy_attention)
+        attention=[]
+        filename='../edGNN_entropy/bin/preprocessed_data/cora/attentions/attention_{}.txt'.format(i)
+        attention_file=open(filename,"r").readlines()
+        for line in attention_file:
+            vector3 = [float(x) for x in line.strip('\n').strip(',').split(",")]
+            attention.append(vector3)
+        attention=torch.from_numpy(np.array(attention)).float().view(nodN,nodN).cuda()
+        entropy_attentions_list.append(attention)
+
     return entropy_attentions_list
 
 
