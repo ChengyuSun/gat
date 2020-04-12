@@ -102,11 +102,11 @@ def read_entropy_attention_list():
     entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
 
     entropy_attentions_list=[]
-    entropy_attentions_all=torch.zeros(nodN*nodN,8).numpy()
+    #entropy_attentions_all=torch.zeros(nodN*nodN,8).numpy()
 
-    def normalization(data):
-        _range = np.max(data) - np.min(data)
-        return (data - np.min(data)) / _range
+    # def normalization(data):
+    #     _range = np.max(data) - np.min(data)
+    #     return (data - np.min(data)) / _range
 
     # for i in range(8):
     #     entropy_attention_array=torch.from_numpy(entropy_attentions_all[:, i]).view(nodN,nodN).numpy()
