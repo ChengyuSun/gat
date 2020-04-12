@@ -102,21 +102,24 @@ def read_entropy_attention_list():
     entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
 
     entropy_attentions_list=[]
-    #entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
+    entropy_attentions_all=torch.zeros(nodN*nodN,8).numpy()
 
     def normalization(data):
         _range = np.max(data) - np.min(data)
         return (data - np.min(data)) / _range
 
-    for i in range(8):
-        entropy_attention_array=torch.from_numpy(entropy_attentions_all[:, i]).view(nodN,nodN).numpy()
-        entropy_attention=[]
-        for j in range(nodN):
-            entropy_attention.append(normalization(entropy_attention_array[j]))
-        entropy_attention=torch.from_numpy(np.array(entropy_attention)).float().cuda()
-        print('entropy_attention',entropy_attention.size())
-        entropy_attentions_list.append(entropy_attention)
+    # for i in range(8):
+    #     entropy_attention_array=torch.from_numpy(entropy_attentions_all[:, i]).view(nodN,nodN).numpy()
+    #     entropy_attention=[]
+    #     for j in range(nodN):
+    #         entropy_attention.append(normalization(entropy_attention_array[j]))
+    #     entropy_attention=torch.from_numpy(np.array(entropy_attention)).float().cuda()
+    #     print('entropy_attention',entropy_attention.size())
+    #     entropy_attentions_list.append(entropy_attention)
 
+    for i in range(8):
+        entropy_attention = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN,nodN).cuda()
+        entropy_attentions_list.append(entropy_attention)
     #
     # entropy_attentions_list=[]
     # for i in range(8):
