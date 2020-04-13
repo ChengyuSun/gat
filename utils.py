@@ -121,13 +121,13 @@ def read_entropy_attention_list():
                 edge_labels.append(label_number - 1)
             else:
                 for j in range(label_number):
-                    if ((min_feature + cap * j) <= i) and (i < (min_feature + cap * (j + 1))):
+                    if ((min_feature + cap * j) <= s) and (s < (min_feature + cap * (j + 1))):
                         edge_labels.append(j)
                         break
 
         edge_labels = np.array(edge_labels)
         for c in range(label_number):
-            print('{} label has {}:'.format(c,len(np.where(edge_labels == c)[0])))
+            print('{} label has {}'.format(c,len(np.where(edge_labels == c)[0])))
         #entropy_attentions_list.append(entropy_attention)
 
     return entropy_attentions_list
