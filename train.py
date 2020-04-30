@@ -18,7 +18,6 @@ from models import GAT, SpGAT
 
 # Training settings
 parser = argparse.ArgumentParser()
-#parser.add_argument('--no-cuda', action='store_true', default=True, help='Disables CUDA training.')
 parser.add_argument('--fastmode', action='store_true', default=False, help='Validate during training pass.')
 parser.add_argument('--sparse', action='store_true', default=False, help='GAT with sparse version or not.')
 parser.add_argument('--seed', type=int, default=72, help='Random seed.')
@@ -34,7 +33,6 @@ parser.add_argument('--entropy', type=int, default=0, help='If need entropy')
 parser.add_argument('--gpu', type=int, default=-1, help='-1 for cpu')
 
 args = parser.parse_args()
-#args.cuda = not args.no_cuda and torch.cuda.is_available()
 
 if args.gpu < 0:
     cuda = False

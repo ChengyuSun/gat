@@ -105,30 +105,8 @@ def read_entropy_attention_list():
     #entropy_attentions_all=torch.zeros(nodN*nodN,8).numpy()
 
     for i in range(8):
-        #entropy_attention = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN,nodN).cuda()
-        entropy_attention=entropy_attentions_all[:, i]
-        print('{} max:{} min:{}'.format(i, max(entropy_attention), min(entropy_attention)))
-
-        edge_feature = np.array(entropy_attention)
-        max_feature = max(entropy_attention)
-        min_feature = min(entropy_attention)
-        distance = max_feature - min_feature
-        label_number=10
-        cap = distance / label_number
-        edge_labels = []
-        for s in edge_feature:
-            if s == max_feature:
-                edge_labels.append(label_number - 1)
-            else:
-                for j in range(label_number):
-                    if ((min_feature + cap * j) <= s) and (s < (min_feature + cap * (j + 1))):
-                        edge_labels.append(j)
-                        break
-
-        edge_labels = np.array(edge_labels)
-        for c in range(label_number):
-            print('{} label has {}'.format(c,len(np.where(edge_labels == c)[0])))
-        #entropy_attentions_list.append(entropy_attention)
+        entropy_attention = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN,nodN).cuda()
+        entropy_attentions_list.append(entropy_attention)
 
     return entropy_attentions_list
 
