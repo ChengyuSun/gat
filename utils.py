@@ -31,14 +31,6 @@ def load_data(path="./data/cora/", dataset="cora"):
     #np.savetxt('./data/cora/adj.csv',np.array(adj.todense()) , delimiter=",", fmt='%s')
     features = normalize_features(features)
     adj = normalize_adj(adj + sp.eye(adj.shape[0]))
-    #print('adj_normalize_adj:', adj)
-    # idx_train = range(140)
-    # idx_val = range(200, 500)
-    # idx_test = range(500, 1500)
-
-    # idx_train = torch.LongTensor(idx_train)
-    # idx_val = torch.LongTensor(idx_val)
-    # idx_test = torch.LongTensor(idx_test)
 
     adj = torch.FloatTensor(np.array(adj.todense()))
     features = torch.FloatTensor(np.array(features.todense()))
@@ -91,9 +83,11 @@ def accuracy(output, labels):
 
 def read_entropy_attention_list():
     print('loading entropy as attention...')
-    nodN=3312
-
-    edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_edge_entropy.txt', "r").readlines()
+    #nodN=3312
+    nodN=2708
+    #../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt
+    #../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_edge_entropy.txt
+    edge_entropy_file = open('', "r").readlines()
     entropy_attentions_all=[]
     for line in edge_entropy_file:
         vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
