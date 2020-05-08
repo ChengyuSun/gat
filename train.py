@@ -59,21 +59,21 @@ for line in array:
     line = [int(x) for x in line]
     matrix.append(line)
 matrix = np.array(matrix)
-adj=torch.from_numpy(matrix)
+adj=torch.FloatTensor(matrix)
 
 node_feature = []
 node_feature_file = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/node_features.txt', "r").readlines()
 for line in node_feature_file:
     vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
     node_feature.append(vector)
-features= torch.from_numpy(np.array(node_feature))
+features= torch.FloatTensor(np.array(node_feature))
 
 labels = []
 node_label_file = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/node_labels.txt', "r").readlines()
 for line in node_label_file:
     labels.append(int(line))
 nodN = len(labels)
-labels=torch.from_numpy(np.array(labels))
+labels=torch.FloatTensor(np.array(labels))
 
 #mask
 random_idx=[i for i in range(nodN)]
