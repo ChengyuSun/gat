@@ -110,8 +110,6 @@ def read_entropy_attention_list():
 
     return entropy_attentions_list
 
-read_entropy_attention_list()
-
  #
     # entropy_attentions_list=[]
     # for i in range(8):
