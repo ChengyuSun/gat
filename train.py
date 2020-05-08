@@ -73,7 +73,7 @@ node_label_file = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer
 for line in node_label_file:
     labels.append(int(line))
 nodN = len(labels)
-labels=torch.FloatTensor(np.array(labels))
+labels=torch.LongTensor(np.array(labels))
 
 #mask
 random_idx=[i for i in range(nodN)]
