@@ -12,9 +12,14 @@ class GAT(nn.Module):
         super(GAT, self).__init__()
         self.dropout = dropout
 
-        attentionlist=read_entropy_attention_list()
-        #self.attentions = [GraphAttentionLayer(nfeat, nhid, dropout=dropout, alpha=alpha, concat=True) for _ in range(nheads)]
-        self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
+        #original--attention
+        self.attentions = [GraphAttentionLayer(nfeat, nhid, dropout=dropout, alpha=alpha, concat=True) for _ in
+                           range(nheads)]
+
+        #entropy--attention
+        #attentionlist=read_entropy_attention_list()
+        #self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
+
         for i, attention in enumerate(self.attentions):
             self.add_module('attention_{}'.format(i), attention)
 

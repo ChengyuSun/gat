@@ -91,9 +91,9 @@ def accuracy(output, labels):
 
 def read_entropy_attention_list():
     print('loading entropy as attention...')
-    nodN=2708
+    nodN=3312
 
-    edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt', "r").readlines()
+    edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_edge_entropy.txt', "r").readlines()
     entropy_attentions_all=[]
     for line in edge_entropy_file:
         vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
