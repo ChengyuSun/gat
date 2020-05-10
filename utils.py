@@ -116,7 +116,7 @@ def read_entropy_attention_list():
         entropy_attention = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN, nodN).cuda()
 
         print(str(i)+' entropy testing')
-        atti=entropy_attention.numpy()
+        atti=entropy_attention.cpu().numpy()
         for j in range(nodN):
             for k in range(nodN):
                 if atti[j][k]!=0 and adj1[j][k]==0:
