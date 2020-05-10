@@ -21,18 +21,23 @@ class GAT(nn.Module):
         # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
         #one-attention-layer
-        self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, concat=True) for i in range(nheads)]
+        # self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, concat=True) for i in range(nheads)]
+        #
+        # for i, attention in enumerate(self.attentions):
+        #     self.add_module('attention_{}'.format(i), attention)
 
-        for i, attention in enumerate(self.attentions):
-            self.add_module('attention_{}'.format(i), attention)
+        self.oneatt=OneLayer(nfeat, nclass, dropout=dropout, concat=False)
 
         self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
 
     def forward(self, x, adj):
         x = F.dropout(x, self.dropout, training=self.training)
         x = torch.cat([att(x, adj) for att in self.attentions], dim=1)
-        x = F.dropout(x, self.dropout, training=self.training)
-        x = F.elu(self.out_att(x, adj))
+
+        # x = F.dropout(x, self.dropout, training=self.training)
+        # x = F.elu(self.out_att(x, adj))
+
+        x=F.elu(self.oneatt(x,adj))
         return F.log_softmax(x, dim=1)
 
     def show(self):
