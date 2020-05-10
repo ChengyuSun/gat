@@ -93,10 +93,10 @@ def read_entropy_attention_list():
         vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
         entropy_attentions_all.append(vector)
 
-    #entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
+    entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
 
     entropy_attentions_list=[]
-    entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
+    #entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
 
     for i in range(8):
         entropy_attention = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN,nodN).cuda()
