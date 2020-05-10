@@ -30,7 +30,7 @@ class MyLayer(nn.Module):
 
 class OneLayer(nn.Module):
     def __init__(self,in_features, out_features,dropout, concat=True):
-        super(MyLayer,self).__init__()
+        super(OneLayer,self).__init__()
 
         self.W = nn.Parameter(torch.zeros(size=(in_features, out_features)))
         nn.init.xavier_uniform_(self.W.data, gain=1.414)
