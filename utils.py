@@ -98,8 +98,23 @@ def read_entropy_attention_list():
     entropy_attentions_list=[]
     #entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
 
+    array = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt').readlines()
+    matrix = []
+    for line in array:
+        line = line.strip('\n').strip(',').split(',')
+        line = [int(x) for x in line]
+        matrix.append(line)
+    matrix = np.array(matrix)
+    adj1 = torch.FloatTensor(matrix)
+
     for i in range(8):
-        entropy_attention = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN,nodN).cuda()
+        print(str(i)+' entropy testing')
+        atti=np.array(entropy_attentions_all[:, i])
+        for j in range(nodN):
+            for k in range(nodN):
+                if atti[j][k]!=0 and adj1[j][k]==0:
+                    print(str(j)+"->"+str(k))
+        entropy_attention = torch.from_numpy(atti).float().view(nodN,nodN).cuda()
         entropy_attentions_list.append(entropy_attention)
 
     return entropy_attentions_list

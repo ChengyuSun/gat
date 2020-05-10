@@ -14,7 +14,7 @@ class MyLayer(nn.Module):
         #self.attention = entropy_attention
 
         self.attention= nn.Parameter(entropy_attention)
-        #nn.init.xavier_uniform_(self.attention.data, gain=1.414)
+        nn.init.xavier_uniform_(self.attention.data, gain=1.414)
 
         self.dropout=dropout
         self.concat=concat
