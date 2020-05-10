@@ -36,7 +36,7 @@ class OneLayer(nn.Module):
         nn.init.xavier_uniform_(self.W.data, gain=1.414)
 
         nodN = 3312
-        self.attention = torch.ones(nodN,nodN)
+        self.attention = torch.ones(nodN,nodN).cuda()
         self.dropout=dropout
         self.concat=concat
 
@@ -45,7 +45,7 @@ class OneLayer(nn.Module):
         h = torch.mm(input, self.W)
 
         attention = self.attention
-        attention = F.dropout(attention, self.dropout, training=self.training)
+        #attention = F.dropout(attention, self.dropout, training=self.training)
 
         h_prime = torch.matmul(attention, h)
         if self.concat:

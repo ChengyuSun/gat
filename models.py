@@ -20,7 +20,7 @@ class GAT(nn.Module):
         # attentionlist=read_entropy_attention_list()
         # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
-        #no-attention-layer
+        #one-attention-layer
         self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, concat=True) for i in range(nheads)]
 
         for i, attention in enumerate(self.attentions):
