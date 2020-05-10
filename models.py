@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from layers import GraphAttentionLayer, SpGraphAttentionLayer,MyLayer,OneLayer
+import numpy as np
 from utils import read_entropy_attention_list
 
 class GAT(nn.Module):
@@ -26,8 +27,17 @@ class GAT(nn.Module):
         # for i, attention in enumerate(self.attentions):
         #     self.add_module('attention_{}'.format(i), attention)
 
+        array = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt').readlines()
+        matrix = []
+        for line in array:
+            line = line.strip('\n').strip(',').split(',')
+            line = [int(x) for x in line]
+            matrix.append(line)
+        matrix = np.array(matrix)
+        adj1 = torch.FloatTensor(matrix)
+
         #simple--gnn
-        self.oneatt=OneLayer(nfeat, nclass, dropout=dropout, concat=False)
+        self.oneatt=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
 
         self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
 

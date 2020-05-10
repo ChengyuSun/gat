@@ -15,7 +15,7 @@ class MyLayer(nn.Module):
         self.dropout=dropout
         self.concat=concat
 
-    def forward(self, input, adj):
+    def forward(self, input,adj):
 
         h = torch.mm(input, self.W)
 
@@ -29,18 +29,18 @@ class MyLayer(nn.Module):
             return h_prime
 
 class OneLayer(nn.Module):
-    def __init__(self,in_features, out_features,dropout, concat=True):
+    def __init__(self,in_features, out_features,dropout, adj,concat=True):
         super(OneLayer,self).__init__()
 
         self.W = nn.Parameter(torch.zeros(size=(in_features, out_features)))
         nn.init.xavier_uniform_(self.W.data, gain=1.414)
 
         nodN = 3312
-        self.attention = torch.ones(nodN,nodN).cuda()
+        self.attention = adj
         self.dropout=dropout
         self.concat=concat
 
-    def forward(self, input, adj):
+    def forward(self, input,adj):
 
         h = torch.mm(input, self.W)
 
