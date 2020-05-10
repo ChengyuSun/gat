@@ -3,7 +3,7 @@ sys.path.append('../')
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from layers import GraphAttentionLayer, SpGraphAttentionLayer,MyLayer
+from layers import GraphAttentionLayer, SpGraphAttentionLayer,MyLayer,OneLayer
 from utils import read_entropy_attention_list
 
 class GAT(nn.Module):
@@ -17,8 +17,11 @@ class GAT(nn.Module):
         #                    range(nheads)]
 
         #entropy--attention
-        attentionlist=read_entropy_attention_list()
-        self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
+        # attentionlist=read_entropy_attention_list()
+        # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
+
+        #no-attention-layer
+        self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, concat=True) for i in range(nheads)]
 
         for i, attention in enumerate(self.attentions):
             self.add_module('attention_{}'.format(i), attention)
