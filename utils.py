@@ -104,8 +104,7 @@ def read_entropy_attention_list():
         line = line.strip('\n').strip(',').split(',')
         line = [int(x) for x in line]
         matrix.append(line)
-    matrix = np.array(matrix)
-    adj1 = torch.FloatTensor(matrix)
+    adj1 = np.array(matrix)
 
     for i in range(8):
         print(str(i)+' entropy testing')
