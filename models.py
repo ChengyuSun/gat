@@ -21,12 +21,6 @@ class GAT(nn.Module):
         # attentionlist=read_entropy_attention_list()
         # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
-        #one-attention-layer
-        # self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, concat=True) for i in range(nheads)]
-        #
-        # for i, attention in enumerate(self.attentions):
-        #     self.add_module('attention_{}'.format(i), attention)
-
         array = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt').readlines()
         matrix = []
         for line in array:
@@ -36,19 +30,28 @@ class GAT(nn.Module):
         matrix = np.array(matrix)
         adj1 = torch.FloatTensor(matrix)
 
+
+
+        #one-attention-layer
+        self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, adj=adj1,concat=True) for i in range(nheads)]
+
+        for i, attention in enumerate(self.attentions):
+            self.add_module('attention_{}'.format(i), attention)
+
+
         #simple--gnn
-        self.oneatt=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
+        #self.oneatt=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
 
         self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
 
     def forward(self, x, adj):
         x = F.dropout(x, self.dropout, training=self.training)
 
-        #x = torch.cat([att(x, adj) for att in self.attentions], dim=1)
-        # x = F.dropout(x, self.dropout, training=self.training)
-        # x = F.elu(self.out_att(x, adj))
+        x = torch.cat([att(x, adj) for att in self.attentions], dim=1)
+        x = F.dropout(x, self.dropout, training=self.training)
+        x = F.elu(self.out_att(x, adj))
 
-        x=F.elu(self.oneatt(x,adj))
+        #x=F.elu(self.oneatt(x,adj))
 
         return F.log_softmax(x, dim=1)
 
