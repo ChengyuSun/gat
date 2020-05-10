@@ -83,7 +83,24 @@ def accuracy(output, labels):
 
 def read_entropy_attention_list():
     print('loading entropy as attention...')
+
+
     nodN=3312
+
+    array = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt').readlines()
+    matrix = []
+    for line in array:
+        line = line.strip('\n').strip(',').split(',')
+        line = [int(x) for x in line]
+        matrix.append(line)
+    adj1 = np.array(matrix)
+
+    for j in range(nodN):
+        for k in range(nodN):
+            if  adj1[j][k] == 0:
+                print(str(j) + "->" + str(k))
+
+
     #nodN=2708
     #../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt
     #../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_edge_entropy.txt
@@ -98,13 +115,7 @@ def read_entropy_attention_list():
     entropy_attentions_list=[]
     #entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
 
-    array = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt').readlines()
-    matrix = []
-    for line in array:
-        line = line.strip('\n').strip(',').split(',')
-        line = [int(x) for x in line]
-        matrix.append(line)
-    adj1 = np.array(matrix)
+
 
     for i in range(8):
         print(str(i)+' entropy testing')
