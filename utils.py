@@ -130,7 +130,7 @@ def read_entropy_attention_list():
                 print(str(j)+" , "+str(k))
                 entropy_mask[j][k] = 1
 
-    entropy_attentions_list.append(torch.from_numpy(entropy_mask).double())
+    entropy_attentions_list.append(torch.DoubleTensor(entropy_mask))
 
     return entropy_attentions_list
 
