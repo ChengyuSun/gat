@@ -41,6 +41,7 @@ class OneLayer(nn.Module):
 
         nodN = 3312
         self.attention = nn.Parameter(adj.cuda())
+        nn.init.xavier_uniform_(self.attention.data, gain=1.414)
         self.dropout=dropout
         self.concat=concat
 
