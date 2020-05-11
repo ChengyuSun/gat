@@ -18,7 +18,7 @@ class GAT(nn.Module):
         #                    range(nheads)]
 
         #entropy--attention
-        attentionlist=read_entropy_attention_list()
+        #attentionlist=read_entropy_attention_list()
         # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
         array = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt').readlines()
@@ -40,10 +40,10 @@ class GAT(nn.Module):
 
 
         #simple--gnn
-        #self.oneatt=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
+        self.oneatt=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
 
         #simple--attenetion-1
-        self.entropy_attention=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
+        #self.entropy_attention=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
 
         self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
 
@@ -54,7 +54,7 @@ class GAT(nn.Module):
         # x = F.dropout(x, self.dropout, training=self.training)
         # x = F.elu(self.out_att(x, adj))
 
-        x=F.elu(self.entropy_attention(x,adj))
+        x=F.elu(self.oneatt(x,adj))
 
         return F.log_softmax(x, dim=1)
 
