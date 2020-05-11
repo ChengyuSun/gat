@@ -11,9 +11,9 @@ class MyLayer(nn.Module):
         self.W = nn.Parameter(torch.zeros(size=(in_features, out_features)))
         nn.init.xavier_uniform_(self.W.data, gain=1.414)
 
-        self.attention = nn.Parameter(entropy_attention.cuda())
+        #self.attention = nn.Parameter(entropy_attention.cuda())
 
-        #self.attention= entropy_attention.cuda()
+        self.attention= entropy_attention.cuda()
         # nn.init.xavier_uniform_(self.attention.data, gain=1.414)
 
         self.dropout=dropout
