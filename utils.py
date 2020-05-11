@@ -125,9 +125,9 @@ def read_entropy_attention_list():
     entropy_attention_1 = entropy_attention_1.numpy()
     for j in range(nodN):
         for k in range(nodN):
-            if entropy_attention_1[j][k]==0 and adj1[j][k]!=0:
+            if adj1[j][k]==1:
                 print(str(j)+" , "+str(k))
-                entropy_attention_1[j][k]=1
+                entropy_attention_1[j][k]+=1
     entropy_attentions_list.append(torch.from_numpy(entropy_attention_1))
 
     return entropy_attentions_list
