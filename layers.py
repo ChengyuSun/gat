@@ -21,11 +21,11 @@ class MyLayer(nn.Module):
 
     def forward(self, input,adj):
 
-        h = torch.mm(input, self.W).double()
-        print('h.type',h.type())
+        h = torch.mm(input, self.W)
+
         attention = F.softmax(self.attention, dim=1)
         attention = F.dropout(attention, self.dropout, training=self.training)
-        print('attention',attention.type())
+
         h_prime = torch.matmul(attention, h)
         if self.concat:
             return F.elu(h_prime)

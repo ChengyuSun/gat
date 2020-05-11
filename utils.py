@@ -122,15 +122,16 @@ def read_entropy_attention_list():
         #
         # entropy_attentions_list.append(torch.from_numpy(atti))
 
+    entropy_count=0
     entropy_attention_1 = entropy_attention_1.numpy()
     entropy_mask=np.zeros((nodN,nodN),float)
     for j in range(nodN):
         for k in range(nodN):
             if entropy_attention_1[j][k]!=0:
-                print(str(j)+" , "+str(k))
+                entropy_count+=1
                 entropy_mask[j][k] = 1
-
-    entropy_attentions_list.append(torch.DoubleTensor(entropy_mask))
+    print('entropy edge:',entropy_count)
+    entropy_attentions_list.append(torch.FloatTensor(entropy_mask))
 
     return entropy_attentions_list
 
