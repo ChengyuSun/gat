@@ -40,8 +40,8 @@ class OneLayer(nn.Module):
         nn.init.xavier_uniform_(self.W.data, gain=1.414)
 
         nodN = 3312
-        #self.attention = nn.Parameter(adj.cuda())
-        self.attention =adj.cuda()
+        self.attention = nn.Parameter(torch.zeros(nodN,nodN))
+        #self.attention =adj.cuda()
         #nn.init.xavier_uniform_(self.attention.data, gain=1.414)
         self.dropout=dropout
         self.concat=concat

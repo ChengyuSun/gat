@@ -109,7 +109,6 @@ def read_entropy_attention_list():
     entropy_attention_1=torch.zeros(nodN,nodN)
     for i in range(8):
         entropy_attention = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN, nodN)
-
         entropy_attention_1+=entropy_attention
 
         # print(str(i)+' entropy appending')
@@ -124,11 +123,11 @@ def read_entropy_attention_list():
 
 
     entropy_attention_1 = entropy_attention_1.numpy()
-    # entropy_mask=np.zeros((nodN,nodN),float)
-    # for j in range(nodN):
-    #     for k in range(nodN):
-    #         if entropy_attention_1[j][k]!=0:
-    #             entropy_mask[j][k] = 1
+
+    for j in range(nodN):
+        for k in range(nodN):
+            if entropy_attention_1[j][k]!=0:
+                entropy_attention_1[j][k] = 1
 
     entropy_attentions_list.append(torch.FloatTensor(entropy_attention_1))
 
