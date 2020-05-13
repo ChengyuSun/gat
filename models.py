@@ -36,7 +36,6 @@ class GAT(nn.Module):
         # for i, attention in enumerate(self.attentions):
         #     self.add_module('attention_{}'.format(i), attention)
 
-
         #simple--gnn
         #self.oneatt=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
 
