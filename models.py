@@ -18,19 +18,17 @@ class GAT(nn.Module):
         #                    range(nheads)]
 
         #entropy--attention
-        #attentionlist=read_entropy_attention_list()
-        # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
+        attentionlist=read_entropy_attention_list()
+        self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
-        array = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt').readlines()
-        matrix = []
-        for line in array:
-            line = line.strip('\n').strip(',').split(',')
-            line = [int(x) for x in line]
-            matrix.append(line)
-        matrix = np.array(matrix)
-        adj1 = torch.FloatTensor(matrix)
-
-
+        # array = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt').readlines()
+        # matrix = []
+        # for line in array:
+        #     line = line.strip('\n').strip(',').split(',')
+        #     line = [int(x) for x in line]
+        #     matrix.append(line)
+        # matrix = np.array(matrix)
+        # adj1 = torch.FloatTensor(matrix)
 
         #one-attention-layer
         #self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, adj=adj1,concat=True) for i in range(nheads)]
@@ -40,7 +38,7 @@ class GAT(nn.Module):
 
 
         #simple--gnn
-        self.oneatt=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
+        #self.oneatt=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
 
         #simple--attenetion-1
         #self.entropy_attention=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
@@ -50,11 +48,11 @@ class GAT(nn.Module):
     def forward(self, x, adj):
         x = F.dropout(x, self.dropout, training=self.training)
 
-        # x = torch.cat([att(x, adj) for att in self.attentions], dim=1)
-        # x = F.dropout(x, self.dropout, training=self.training)
-        # x = F.elu(self.out_att(x, adj))
+        x = torch.cat([att(x, adj) for att in self.attentions], dim=1)
+        x = F.dropout(x, self.dropout, training=self.training)
+        x = F.elu(self.out_att(x, adj))
 
-        x=F.elu(self.oneatt(x,adj))
+        #x=F.elu(self.oneatt(x,adj))
 
         return F.log_softmax(x, dim=1)
 
