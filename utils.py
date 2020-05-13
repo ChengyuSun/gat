@@ -111,7 +111,6 @@ def read_entropy_attention_list():
         print('attention '+str(i))
         entropy_attention = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN, nodN)
         #entropy_attention_1+=entropy_attention
-        print(str(i)+' entropy appending')
         atti=entropy_attention.numpy()
         for j in range(nodN):
             for k in range(nodN):

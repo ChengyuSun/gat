@@ -8,7 +8,7 @@ class MyLayer(nn.Module):
     def __init__(self,in_features, out_features, entropy_attention,dropout, concat=True):
         super(MyLayer,self).__init__()
 
-        self.W = nn.Parameter(torch.zeros(size=(in_features, out_features)))
+        self.W = nn.Parameter(torch.zeros(size=(in_features, out_features)).cuda())
         nn.init.xavier_uniform_(self.W.data, gain=1.414)
 
         self.attention= entropy_attention.cuda()
