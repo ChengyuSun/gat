@@ -31,18 +31,18 @@ class GAT(nn.Module):
         adj1 = torch.FloatTensor(matrix)
 
         #gnn-layer
-        #self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, adj=adj1,concat=True) for i in range(nheads)]
+        self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, adj=adj1,concat=True) for i in range(nheads)]
 
         # for i, attention in enumerate(self.attentions):
         #     self.add_module('attention_{}'.format(i), attention)
 
         #simple--gnn
-        self.simpleLayer=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
+        #self.simpleLayer=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
 
         #simple--attenetion-1
         #self.entropy_attention=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
 
-        #self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
+        self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
 
     def forward(self, x, adj):
         x = F.dropout(x, self.dropout, training=self.training)
