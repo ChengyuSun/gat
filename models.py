@@ -6,7 +6,8 @@ import torch.nn.functional as F
 from layers import GraphAttentionLayer, SpGraphAttentionLayer,MyLayer,OneLayer
 import numpy as np
 from utils import read_entropy_attention_list
-
+from utils import read_csv
+from utils import read_txt
 class GAT(nn.Module):
     def __init__(self, nfeat, nhid, nclass, dropout, alpha, nheads):
         """Dense version of GAT."""
@@ -21,19 +22,12 @@ class GAT(nn.Module):
         attentionlist=read_entropy_attention_list()
         self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
-        array = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt').readlines()
-        matrix = []
-        for line in array:
-            line = line.strip('\n').strip(',').split(',')
-            line = [int(x) for x in line]
-            matrix.append(line)
-        matrix = np.array(matrix)
-        adj1 = torch.FloatTensor(matrix)
+
+        #adj_citeseer = read_txt()
+        adj_cora=read_csv()
 
         #gnn-layer
         #self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, adj=adj1,concat=True) for i in range(nheads)]
-
-
 
         #simple--gnn
         #self.simpleLayer=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)

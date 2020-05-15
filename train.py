@@ -49,44 +49,44 @@ torch.manual_seed(args.seed)
 
 
 # Load data
-#adj, features, labels, idx_train, idx_val, idx_test = load_data()
+adj, features, labels, idx_train, idx_val, idx_test = load_data()
 
-
-array = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt').readlines()
-matrix = []
-for line in array:
-    line = line.strip('\n').strip(',').split(',')
-    line = [int(x) for x in line]
-    matrix.append(line)
-matrix = np.array(matrix)
-adj=torch.FloatTensor(matrix)
-
-node_feature = []
-node_feature_file = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/node_features.txt', "r").readlines()
-for line in node_feature_file:
-    vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
-    node_feature.append(vector)
-features= torch.FloatTensor(np.array(node_feature))
-
-labels = []
-node_label_file = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/node_labels.txt', "r").readlines()
-for line in node_label_file:
-    labels.append(int(line))
-nodN = len(labels)
-labels=torch.LongTensor(np.array(labels))
-
-#mask
-random_idx=[i for i in range(nodN)]
-random.shuffle(random_idx)
-train_idx=random_idx[nodN//5:]
-idx_test=random_idx[:nodN//5]
-idx_val = train_idx[:len(train_idx) // 5]
-idx_train = train_idx[len(train_idx) // 5:]
-
-idx_test=torch.LongTensor(idx_test)
-idx_val=torch.LongTensor(idx_val)
-idx_train=torch.LongTensor(idx_train)
-
+#
+# array = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt').readlines()
+# matrix = []
+# for line in array:
+#     line = line.strip('\n').strip(',').split(',')
+#     line = [int(x) for x in line]
+#     matrix.append(line)
+# matrix = np.array(matrix)
+# adj=torch.FloatTensor(matrix)
+#
+# node_feature = []
+# node_feature_file = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/node_features.txt', "r").readlines()
+# for line in node_feature_file:
+#     vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
+#     node_feature.append(vector)
+# features= torch.FloatTensor(np.array(node_feature))
+#
+# labels = []
+# node_label_file = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/node_labels.txt', "r").readlines()
+# for line in node_label_file:
+#     labels.append(int(line))
+# nodN = len(labels)
+# labels=torch.LongTensor(np.array(labels))
+#
+# #mask
+# random_idx=[i for i in range(nodN)]
+# random.shuffle(random_idx)
+# train_idx=random_idx[nodN//5:]
+# idx_test=random_idx[:nodN//5]
+# idx_val = train_idx[:len(train_idx) // 5]
+# idx_train = train_idx[len(train_idx) // 5:]
+#
+# idx_test=torch.LongTensor(idx_test)
+# idx_val=torch.LongTensor(idx_val)
+# idx_train=torch.LongTensor(idx_train)
+#
 
 print('adj:',adj.size())
 print('features:',features.size())
@@ -207,5 +207,5 @@ model.load_state_dict(torch.load('{}.pkl'.format(best_epoch)))
 os.remove('{}.pkl'.format(best_epoch))
 # Testing
 acc=compute_test()
-with open('./acc.txt', 'a+') as f:
+with open('./cora_acc.txt', 'a+') as f:
     f.write(str(args.dropout)+' '+str(args.lr)+' : '+str(acc) + '\n')
