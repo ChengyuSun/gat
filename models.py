@@ -18,8 +18,8 @@ class GAT(nn.Module):
         #                    range(nheads)]
 
         #entropy--attention
-        #attentionlist=read_entropy_attention_list()
-        # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
+        attentionlist=read_entropy_attention_list()
+        self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
         array = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt').readlines()
         matrix = []
@@ -31,10 +31,9 @@ class GAT(nn.Module):
         adj1 = torch.FloatTensor(matrix)
 
         #gnn-layer
-        self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, adj=adj1,concat=True) for i in range(nheads)]
+        #self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, adj=adj1,concat=True) for i in range(nheads)]
 
-        # for i, attention in enumerate(self.attentions):
-        #     self.add_module('attention_{}'.format(i), attention)
+
 
         #simple--gnn
         #self.simpleLayer=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
@@ -42,6 +41,8 @@ class GAT(nn.Module):
         #simple--attenetion-1
         #self.entropy_attention=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
 
+        for i, attention in enumerate(self.attentions):
+            self.add_module('attention_{}'.format(i), attention)
         self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
 
     def forward(self, x, adj):
