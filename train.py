@@ -164,6 +164,7 @@ def compute_test():
     print("Test set results:",
           "loss= {:.4f}".format(loss_test.item()),
           "accuracy= {:.4f}".format(acc_test.item()))
+    return acc_test
 
 # Train model
 t_total = time.time()
@@ -185,24 +186,26 @@ for epoch in range(args.epochs):
     if bad_counter == args.patience:
         break
 
-#     files = glob.glob('*.pkl')
-#     for file in files:
-#         epoch_nb = int(file.split('.')[0])
-#         if epoch_nb < best_epoch:
-#             os.remove(file)
-#
-# files = glob.glob('*.pkl')
-# for file in files:
-#     epoch_nb = int(file.split('.')[0])
-#     if epoch_nb > best_epoch:
-#         os.remove(file)
+    files = glob.glob('*.pkl')
+    for file in files:
+        epoch_nb = int(file.split('.')[0])
+        if epoch_nb < best_epoch:
+            os.remove(file)
+
+files = glob.glob('*.pkl')
+for file in files:
+    epoch_nb = int(file.split('.')[0])
+    if epoch_nb > best_epoch:
+        os.remove(file)
 
 print("Optimization Finished!")
 print("Total time elapsed: {:.4f}s".format(time.time() - t_total))
 
-# # Restore best model
-# print('Loading {}th epoch'.format(best_epoch))
-# model.load_state_dict(torch.load('{}.pkl'.format(best_epoch)))
+# Restore best model
+print('Loading {}th epoch'.format(best_epoch))
+model.load_state_dict(torch.load('{}.pkl'.format(best_epoch)))
 
 # Testing
-compute_test()
+acc=compute_test()
+with open('./acc.txt', 'a+') as f:
+    f.write(str(args.dropout)+' '+str(args.lr)+' : '+str(acc) + '\n')
