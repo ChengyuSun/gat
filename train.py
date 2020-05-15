@@ -204,7 +204,7 @@ print("Total time elapsed: {:.4f}s".format(time.time() - t_total))
 # Restore best model
 print('Loading {}th epoch'.format(best_epoch))
 model.load_state_dict(torch.load('{}.pkl'.format(best_epoch)))
-
+os.remove('{}.pkl'.format(best_epoch))
 # Testing
 acc=compute_test()
 with open('./acc.txt', 'a+') as f:
