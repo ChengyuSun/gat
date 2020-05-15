@@ -104,22 +104,18 @@ def read_entropy_attention_list():
         line = line.strip('\n').strip(',').split(',')
         line = [int(x) for x in line]
         matrix.append(line)
-    adj1 = np.array(matrix)
+    adj = torch.from_numpy(np.array(matrix))
 
-    #entropy_attention_1=torch.zeros(nodN,nodN)
+    entropy_attention_1=torch.zeros(nodN,nodN)
     for i in range(8):
         print('attention '+str(i))
-        entropy_attention = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN, nodN)
-        #entropy_attention+=torch.from_numpy(adj1)
-        entropy_attentions_list.append(entropy_attention)
+        entropy_attention_i = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN, nodN)
+        #entropy_attention_i+=torch.from_numpy(adj)
+        entropy_attention_1+=entropy_attention_i
+        #entropy_attentions_list.append(entropy_attention)
 
-
-    #entropy_attention_1 = entropy_attention_1.numpy()
-    # for j in range(nodN):
-    #     for k in range(nodN):
-    #         if entropy_attention_1[j][k]!=0:
-    #             entropy_attention_1[j][k] = 1
-    #entropy_attentions_list.append(torch.FloatTensor(entropy_attention_1))
+    entropy_attention_1+=adj
+    entropy_attentions_list.append(entropy_attention_1)
 
     return entropy_attentions_list
 

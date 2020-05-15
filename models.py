@@ -18,8 +18,8 @@ class GAT(nn.Module):
         #                    range(nheads)]
 
         #entropy--attention
-        attentionlist=read_entropy_attention_list()
-        self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
+        # attentionlist=read_entropy_attention_list()
+        # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
         # array = open('../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt').readlines()
         # matrix = []
@@ -30,7 +30,7 @@ class GAT(nn.Module):
         # matrix = np.array(matrix)
         # adj1 = torch.FloatTensor(matrix)
 
-        #one-attention-layer
+        #gnn-layer
         #self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, adj=adj1,concat=True) for i in range(nheads)]
 
         # for i, attention in enumerate(self.attentions):
@@ -40,18 +40,18 @@ class GAT(nn.Module):
         #self.oneatt=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
 
         #simple--attenetion-1
-        #self.entropy_attention=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
+        self.entropy_attention=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
 
-        self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
+        #self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
 
     def forward(self, x, adj):
         x = F.dropout(x, self.dropout, training=self.training)
 
-        x = torch.cat([att(x, adj) for att in self.attentions], dim=1)
-        x = F.dropout(x, self.dropout, training=self.training)
-        x = F.elu(self.out_att(x, adj))
+        # x = torch.cat([att(x, adj) for att in self.attentions], dim=1)
+        # x = F.dropout(x, self.dropout, training=self.training)
+        # x = F.elu(self.out_att(x, adj))
 
-        #x=F.elu(self.oneatt(x,adj))
+        x=F.elu(self.entropy_attention(x,adj))
 
         return F.log_softmax(x, dim=1)
 
