@@ -21,7 +21,7 @@ class MyLayer(nn.Module):
         h = torch.mm(input, self.W)
 
         attention = F.softmax(self.attention, dim=1)
-        attention = F.dropout(attention, self.dropout, training=self.training)
+        #attention = F.dropout(attention, self.dropout, training=self.training)
 
         h_prime = torch.matmul(attention, h)
         if self.concat:
