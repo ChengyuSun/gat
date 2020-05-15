@@ -114,7 +114,7 @@ def read_entropy_attention_list():
         entropy_attention_1+=entropy_attention_i
         #entropy_attentions_list.append(entropy_attention)
 
-    entropy_attention_1+=adj
+    #entropy_attention_1+=adj
     entropy_attentions_list.append(entropy_attention_1)
 
     return entropy_attentions_list
