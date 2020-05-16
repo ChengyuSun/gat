@@ -90,7 +90,7 @@ def read_csv(graphfile_csv='../edGNN_entropy/bin/preprocessed_data/cora/adj.csv'
         line = [float(x) for x in line]
         matrix.append(line)
     matrix = np.array(matrix)
-    return torch.from_numpy(matrix)
+    return torch.from_numpy(matrix).float()
 
 
 def read_txt(graphfile_txt='../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_adj.txt'):
