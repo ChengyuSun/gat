@@ -15,8 +15,8 @@ class GAT(nn.Module):
         self.dropout = dropout
 
         #original--attention
-        # self.attentions = [GraphAttentionLayer(nfeat, nhid, dropout=dropout, alpha=alpha, concat=True) for _ in
-        #                    range(nheads)]
+        self.attentions = [GraphAttentionLayer(nfeat, nhid, dropout=dropout, alpha=alpha, concat=True) for _ in
+                           range(nheads)]
 
         #entropy--attention
         # attentionlist=read_entropy_attention_list()
@@ -27,7 +27,7 @@ class GAT(nn.Module):
         adj_cora=read_csv()
 
         #gnn-layer
-        self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, adj=adj_cora,concat=True) for i in range(nheads)]
+        #self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, adj=adj_cora,concat=True) for i in range(nheads)]
 
         #simple--gnn
         #self.simpleLayer=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
