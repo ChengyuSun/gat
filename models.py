@@ -20,7 +20,7 @@ class GAT(nn.Module):
 
         #entropy--attention
         attentionlist=read_entropy_attention_list()
-        self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
+        # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
 
         #adj_citeseer = read_txt()
@@ -32,21 +32,27 @@ class GAT(nn.Module):
         #simple--gnn
         #self.simpleLayer=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
 
-        #simple--attenetion-1
-        #self.entropy_attention=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
+        #simple--attenetion
+        self.simpleLayer=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
 
-        for i, attention in enumerate(self.attentions):
-            self.add_module('attention_{}'.format(i), attention)
+
+        if hasattr(self,'attentions'):
+            for i, attention in enumerate(self.attentions):
+                print('add {} layer to model'.format(i))
+                self.add_module('attention_{}'.format(i), attention)
+        else:
+            self.add_module('simple', self.simpleLayer)
+
         self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
 
     def forward(self, x, adj):
         x = F.dropout(x, self.dropout, training=self.training)
 
-        x = torch.cat([att(x, adj) for att in self.attentions], dim=1)
-        x = F.dropout(x, self.dropout, training=self.training)
-        x = F.elu(self.out_att(x, adj))
+        # x = torch.cat([att(x, adj) for att in self.attentions], dim=1)
+        # x = F.dropout(x, self.dropout, training=self.training)
+        # x = F.elu(self.out_att(x, adj))
 
-        #x=F.elu(self.simpleLayer(x,adj))
+        x=F.elu(self.simpleLayer(x,adj))
 
         return F.log_softmax(x, dim=1)
 

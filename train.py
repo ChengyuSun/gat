@@ -86,7 +86,7 @@ adj, features, labels, idx_train, idx_val, idx_test = load_data()
 # idx_test=torch.LongTensor(idx_test)
 # idx_val=torch.LongTensor(idx_val)
 # idx_train=torch.LongTensor(idx_train)
-#
+
 
 print('adj:',adj.size())
 print('features:',features.size())
