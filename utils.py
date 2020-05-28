@@ -27,12 +27,24 @@ def load_data(path="./data/cora/", dataset="cora"):
     adj = sp.coo_matrix((np.ones(edges.shape[0]), (edges[:, 0], edges[:, 1])), shape=(labels.shape[0], labels.shape[0]), dtype=np.float32)
     # build symmetric adjacency matrix
     adj = adj + adj.T.multiply(adj.T > adj) - adj.multiply(adj.T > adj)
+
+    adj1=np.array(adj.todense())
+    counter=0
+
+    print('adj.shape[0]:',adj.shape[0])
     #print('adj_symmetric:', adj)
     #np.savetxt('./data/cora/adj.csv',np.array(adj.todense()) , delimiter=",", fmt='%s')
     features = normalize_features(features)
+
     adj = normalize_adj(adj + sp.eye(adj.shape[0]))
 
     adj = torch.FloatTensor(np.array(adj.todense()))
+    for i in range(nodN):
+        for j in range(nodN):
+            if adj1!=0:
+                counter+=1
+    print(counter)
+
     features = torch.FloatTensor(np.array(features.todense()))
     labels = torch.LongTensor(np.where(labels)[1])
 
@@ -110,15 +122,15 @@ def read_entropy_attention_list():
     #../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt
     #../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_edge_entropy.txt
 
-    # edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt', "r").readlines()
-    # entropy_attentions_all=[]
-    # for line in edge_entropy_file:
-    #     vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
-    #     entropy_attentions_all.append(vector)
-    #
-    # entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
+    edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt', "r").readlines()
+    entropy_attentions_all=[]
+    for line in edge_entropy_file:
+        vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
+        entropy_attentions_all.append(vector)
 
-    entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
+    entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
+
+    #entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
 
     #adj_citeseer=read_txt()
     adj_cora=read_csv()
