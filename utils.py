@@ -41,7 +41,7 @@ def load_data(path="./data/cora/", dataset="cora"):
     adj = torch.FloatTensor(np.array(adj.todense()))
     for i in range(nodN):
         for j in range(nodN):
-            if adj1!=0:
+            if adj1[i][j]!=0:
                 counter+=1
     print(counter)
 
