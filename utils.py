@@ -109,30 +109,35 @@ def read_entropy_attention_list():
     nodN=2708
     #../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt
     #../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_edge_entropy.txt
-    edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt', "r").readlines()
-    entropy_attentions_all=[]
-    for line in edge_entropy_file:
-        vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
-        entropy_attentions_all.append(vector)
 
-    entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
+    # edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt', "r").readlines()
+    # entropy_attentions_all=[]
+    # for line in edge_entropy_file:
+    #     vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
+    #     entropy_attentions_all.append(vector)
+    #
+    # entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
 
-    entropy_attentions_list=[]
-    #entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
+    entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
 
     #adj_citeseer=read_txt()
     adj_cora=read_csv()
 
-    entropy_attention_1=torch.zeros(nodN,nodN)
+
+    entropy_attentions_list=[]
+    #entropy_attention_1=torch.zeros(nodN,nodN)
+    zero_vec=torch.zeros(nodN,nodN)
     for i in range(8):
         print('attention '+str(i))
         entropy_attention_i = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN, nodN)
         #entropy_attention_i+=2*adj_cora
-        entropy_attention_1+=entropy_attention_i
-        #entropy_attentions_list.append(entropy_attention_i)
+        #entropy_attention_1+=entropy_attention_i
+
+        entropy_attention_i = torch.where(adj_cora > 0, entropy_attention_i, zero_vec)
+        entropy_attentions_list.append(entropy_attention_i)
 
     #entropy_attention_1+=adj_cora
-    entropy_attentions_list.append(entropy_attention_1)
+    #entropy_attentions_list.append(entropy_attention_1)
 
     return entropy_attentions_list
 

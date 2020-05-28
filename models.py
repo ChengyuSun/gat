@@ -15,11 +15,11 @@ class GAT(nn.Module):
         self.dropout = dropout
 
         #original--attention
-        # self.attentions = [GraphAttentionLayer(nfeat, nhid, dropout=dropout, alpha=alpha, concat=True) for _ in
-        #                    range(nheads)]
+        self.attentions = [GraphAttentionLayer(nfeat, nhid, dropout=dropout, alpha=alpha, concat=True) for _ in
+                           range(nheads)]
 
         #entropy--attention
-        attentionlist=read_entropy_attention_list()
+        # attentionlist=read_entropy_attention_list()
         # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
 
@@ -33,14 +33,15 @@ class GAT(nn.Module):
         #self.simpleLayer=OneLayer(nfeat, nclass, dropout=dropout, adj=adj1,concat=False)
 
         #simple--attenetion
-        self.simpleLayer=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
+        #self.simpleLayer=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
 
 
         if hasattr(self,'attentions'):
             for i, attention in enumerate(self.attentions):
                 print('add {} layer to model'.format(i))
                 self.add_module('attention_{}'.format(i), attention)
-        else:
+        elif hasattr(self, 'simpleLayer'):
+            print('add simple layer into model')
             self.add_module('simple', self.simpleLayer)
 
         self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
@@ -48,11 +49,13 @@ class GAT(nn.Module):
     def forward(self, x, adj):
         x = F.dropout(x, self.dropout, training=self.training)
 
-        # x = torch.cat([att(x, adj) for att in self.attentions], dim=1)
-        # x = F.dropout(x, self.dropout, training=self.training)
-        # x = F.elu(self.out_att(x, adj))
+        if hasattr(self, 'attentions'):
+            x = torch.cat([att(x, adj) for att in self.attentions], dim=1)
+            x = F.dropout(x, self.dropout, training=self.training)
+            x = F.elu(self.out_att(x, adj))
 
-        x=F.elu(self.simpleLayer(x,adj))
+        elif hasattr(self, 'simpleLayer'):
+            x=F.elu(self.simpleLayer(x,adj))
 
         return F.log_softmax(x, dim=1)
 
