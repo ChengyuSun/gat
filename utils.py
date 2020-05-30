@@ -28,10 +28,7 @@ def load_data(path="./data/cora/", dataset="cora"):
     # build symmetric adjacency matrix
     adj = adj + adj.T.multiply(adj.T > adj) - adj.multiply(adj.T > adj)
 
-    adj1=np.array(adj.todense())
-    counter=0
 
-    print('adj.shape[0]:',adj.shape[0])
     #print('adj_symmetric:', adj)
     #np.savetxt('./data/cora/adj.csv',np.array(adj.todense()) , delimiter=",", fmt='%s')
     features = normalize_features(features)
@@ -39,11 +36,7 @@ def load_data(path="./data/cora/", dataset="cora"):
     adj = normalize_adj(adj + sp.eye(adj.shape[0]))
 
     adj = torch.FloatTensor(np.array(adj.todense()))
-    for i in range(nodN):
-        for j in range(nodN):
-            if adj1[i][j]!=0:
-                counter+=1
-    print(counter)
+
 
     features = torch.FloatTensor(np.array(features.todense()))
     labels = torch.LongTensor(np.where(labels)[1])
