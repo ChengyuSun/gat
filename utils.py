@@ -110,18 +110,24 @@ def read_txt(graphfile_txt='../edGNN_entropy/bin/preprocessed_data/citeseer/cite
 
 def read_entropy_attention_list():
     print('loading entropy as attention...')
+
+    #citeseer
     #nodN=3312
+
+    #cora
     nodN=2708
+
     #../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt
     #../edGNN_entropy/bin/preprocessed_data/citeseer/citeseer/citeseer_edge_entropy.txt
 
-    edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt', "r").readlines()
-    entropy_attentions_all=[]
-    for line in edge_entropy_file:
-        vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
-        entropy_attentions_all.append(vector)
-
-    entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
+    #read edge entropy
+    # edge_entropy_file = open('../edGNN_entropy/bin/preprocessed_data/cora/edge_entropy.txt', "r").readlines()
+    # entropy_attentions_all=[]
+    # for line in edge_entropy_file:
+    #     vector = [float(x) for x in line.strip('\n').strip(',').split(",")]
+    #     entropy_attentions_all.append(vector)
+    #
+    # entropy_attentions_all=torch.from_numpy(np.array(entropy_attentions_all)).view(nodN*nodN,8).numpy()
 
     #entropy_attentions_all=torch.randn(nodN*nodN,8).numpy()
 
@@ -134,10 +140,10 @@ def read_entropy_attention_list():
     zero_vec=torch.zeros(nodN,nodN)
     for i in range(8):
         print('attention '+str(i))
-        entropy_attention_i = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN, nodN)
+        #entropy_attention_i = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN, nodN)
         #entropy_attention_i+=2*adj_cora
         #entropy_attention_1+=entropy_attention_i
-
+        entropy_attention_i=adj_cora
         #no attention(gnn)
         #entropy_attention_i = torch.where(adj_cora > 0, entropy_attention_i, zero_vec)
         entropy_attentions_list.append(entropy_attention_i)
