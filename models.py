@@ -3,7 +3,7 @@ sys.path.append('../')
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from layers import GraphAttentionLayer, SpGraphAttentionLayer,MyLayer,OneLayer
+from layers import GraphAttentionLayer, SpGraphAttentionLayer,MyLayer,OneLayer,CovLayer
 import numpy as np
 from utils import read_entropy_attention_list
 from utils import read_csv
@@ -19,8 +19,8 @@ class GAT(nn.Module):
         #                    range(nheads)]
 
         #entropy--attention
-        # attentionlist=read_entropy_attention_list()
-        # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
+        attentionlist=read_entropy_attention_list()
+        self.attentions = [MyLayer(nfeat, nclass, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
 
         #adj_citeseer = read_txt()
@@ -30,7 +30,7 @@ class GAT(nn.Module):
         #self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, adj=adj_cora,concat=True) for i in range(nheads)]
 
         #simple--gnn
-        self.simpleLayer=OneLayer(nfeat, nclass, dropout=dropout, adj=read_csv(),concat=False)
+        #self.simpleLayer=OneLayer(nfeat, nclass, dropout=dropout, adj=read_csv(),concat=False)
 
         #simple--attenetion
         #self.simpleLayer=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
@@ -41,7 +41,8 @@ class GAT(nn.Module):
                 print('add {} layer to model'.format(i))
                 self.add_module('attention_{}'.format(i), attention)
             print('add out layer to model')
-            self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
+            #self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
+            self.out_att = CovLayer(nhid * nheads, nclass)
         elif hasattr(self, 'simpleLayer'):
             print('add simple layer into model')
             self.add_module('simple', self.simpleLayer)

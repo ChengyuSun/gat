@@ -55,6 +55,21 @@ class OneLayer(nn.Module):
         else:
             return h_prime
 
+class CovLayer(nn.Module):
+    def __init__(self , in_features, out_features):
+        super(CovLayer,self).__init__()
+
+        self.W = nn.Parameter(torch.zeros(size=(in_features, out_features)))
+        nn.init.xavier_uniform_(self.W.data, gain=1.414)
+
+
+    def forward(self, input,adj):
+
+        h_prime = torch.mm(input, self.W)
+
+        return h_prime
+
+
 
 class GraphAttentionLayer(nn.Module):
     """

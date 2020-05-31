@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc9593e7-4751-45cd-88f2-341a1cc048ee" name="Default Changelist" comment="">
+    <list default="true" id="cc9593e7-4751-45cd-88f2-341a1cc048ee" name="Default Changelist" comment="0531">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layers.py" beforeDir="false" afterPath="$PROJECT_DIR$/layers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/试验记录.docx" beforeDir="false" afterPath="$PROJECT_DIR$/试验记录.docx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="51" column="3" selection-start-line="51" selection-start-column="3" selection-end-line="51" selection-end-column="3" />
+            <state relative-caret-position="150">
+              <caret line="102" column="34" lean-forward="true" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -47,8 +49,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="147" column="31" selection-start-line="147" selection-start-column="31" selection-end-line="147" selection-end-column="31" />
+            <state relative-caret-position="352">
+              <caret line="153" column="30" selection-start-line="153" selection-start-column="30" selection-end-line="153" selection-end-column="30" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -59,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1100">
-              <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+            <state relative-caret-position="127">
+              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
             </state>
           </provider>
         </entry>
@@ -68,7 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/layers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="152">
+              <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -106,6 +109,7 @@
         <option value="$PROJECT_DIR$/train.py" />
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/models.py" />
+        <option value="$PROJECT_DIR$/layers.py" />
       </list>
     </option>
   </component>
@@ -326,21 +330,7 @@
       <workItem from="1588911224692" duration="12348000" />
       <workItem from="1589119887711" duration="22901000" />
       <workItem from="1589339542574" duration="5827000" />
-      <workItem from="1590568016677" duration="11626000" />
-    </task>
-    <task id="LOCAL-00072" summary="0510">
-      <created>1589124071907</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1589124071907</updated>
-    </task>
-    <task id="LOCAL-00073" summary="0510">
-      <created>1589124172468</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1589124172468</updated>
+      <workItem from="1590568016677" duration="19457000" />
     </task>
     <task id="LOCAL-00074" summary="0510">
       <created>1589124676209</created>
@@ -671,11 +661,25 @@
       <option name="project" value="LOCAL" />
       <updated>1590854885472</updated>
     </task>
-    <option name="localTasksCounter" value="121" />
+    <task id="LOCAL-00121" summary="0531">
+      <created>1590895332618</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1590895332618</updated>
+    </task>
+    <task id="LOCAL-00122" summary="0531">
+      <created>1590919440131</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1590919440131</updated>
+    </task>
+    <option name="localTasksCounter" value="123" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="215133000" />
+    <option name="totallyTimeSpent" value="222964000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -752,7 +756,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="0327with torch.no_grad" />
     <MESSAGE value="0327with grad" />
     <MESSAGE value="0327" />
     <MESSAGE value="0329" />
@@ -777,18 +780,10 @@
     <MESSAGE value="0515" />
     <MESSAGE value="0528" />
     <MESSAGE value="0530" />
-    <option name="LAST_COMMIT_MESSAGE" value="0530" />
+    <MESSAGE value="0531" />
+    <option name="LAST_COMMIT_MESSAGE" value="0531" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/layers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/cora/cora.cites">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
@@ -798,8 +793,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="51" column="3" selection-start-line="51" selection-start-column="3" selection-end-line="51" selection-end-column="3" />
+        <state relative-caret-position="150">
+          <caret line="102" column="34" lean-forward="true" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -808,8 +803,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="147" column="31" selection-start-line="147" selection-start-column="31" selection-end-line="147" selection-end-column="31" />
+        <state relative-caret-position="352">
+          <caret line="153" column="30" selection-start-line="153" selection-start-column="30" selection-end-line="153" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/layers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -818,8 +823,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1100">
-          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+        <state relative-caret-position="127">
+          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
         </state>
       </provider>
     </entry>
