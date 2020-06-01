@@ -15,11 +15,11 @@ class GAT(nn.Module):
         self.dropout = dropout
 
         #trainable--attention
-        self.attentions = [GraphAttentionLayer(nfeat, nhid, dropout=dropout, alpha=alpha, concat=True) for _ in
-                           range(nheads)]
+        # self.attentions = [GraphAttentionLayer(nfeat, nhid, dropout=dropout, alpha=alpha, concat=True) for _ in
+        #                    range(nheads)]
 
         #entropy--attention
-        # attentionlist=read_entropy_attention_list()
+        attentionlist=read_entropy_attention_list()
         # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
 
@@ -33,7 +33,7 @@ class GAT(nn.Module):
         #self.simpleLayer=OneLayer(nfeat, nclass, dropout=dropout, adj=read_csv(),concat=False)
 
         #simple--attenetion
-        #self.simpleLayer=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
+        self.simpleLayer=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
 
 
         if hasattr(self,'attentions'):
