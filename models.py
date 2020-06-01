@@ -19,21 +19,21 @@ class GAT(nn.Module):
         #                    range(nheads)]
 
         #entropy--attention
-        #attentionlist=read_entropy_attention_list()
+        attentionlist=read_entropy_attention_list()
         # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
 
         #adj_citeseer = read_txt()
         #adj_cora=read_csv()
 
-        #gnn-layer
+        #gnn-layers
         #self.attentions = [OneLayer(nfeat, nhid, dropout=dropout, adj=adj_cora,concat=True) for i in range(nheads)]
 
         #simple--gnn
-        self.simpleLayer=OneLayer(nfeat, nclass, dropout=dropout, adj=read_csv(),concat=False)
+        #self.simpleLayer=OneLayer(nfeat, nclass, dropout=dropout, adj=read_csv(),concat=False)
 
         #simple--attenetion
-        #self.simpleLayer=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
+        self.simpleLayer=MyLayer(nfeat, nclass, attentionlist[0] ,dropout=dropout,concat=False)
 
 
         if hasattr(self,'attentions'):

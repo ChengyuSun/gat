@@ -147,7 +147,7 @@ def read_entropy_attention_list():
         #entropy_attention_i = torch.where(adj_cora > 0, entropy_attention_i, zero_vec)
         #entropy_attentions_list.append(entropy_attention_i)
 
-    #entropy_attention_1+=adj_cora
+    entropy_attention_1+=adj_cora
     entropy_attentions_list.append(entropy_attention_1)
 
     return entropy_attentions_list
