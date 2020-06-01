@@ -37,8 +37,8 @@ class OneLayer(nn.Module):
         nn.init.xavier_uniform_(self.W.data, gain=1.414)
 
 
-        rand_vec=torch.randn(adj.shape[0],adj.shape[1])
-        zero_vec=torch.zeros(adj.shape[0],adj.shape[1])
+        rand_vec=torch.randn(adj.shape[0],adj.shape[1]).cuda()
+        zero_vec=torch.zeros(adj.shape[0],adj.shape[1]).cuda()
         self.attention=torch.where(adj > 0, rand_vec, zero_vec)
 
         #self.attention =adj.cuda()
