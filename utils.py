@@ -137,7 +137,6 @@ def read_entropy_attention_list():
 
     entropy_attentions_list=[]
     entropy_attention_1=torch.zeros(nodN,nodN)
-    zero_vec=torch.zeros(nodN,nodN)
     for i in range(8):
         print('attention '+str(i))
         entropy_attention_i = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN, nodN)

@@ -36,8 +36,12 @@ class OneLayer(nn.Module):
         self.W = nn.Parameter(torch.zeros(size=(in_features, out_features)))
         nn.init.xavier_uniform_(self.W.data, gain=1.414)
 
-        #self.attention = nn.Parameter(torch.zeros(nodN,nodN))
-        self.attention =adj.cuda()
+
+        rand_vec=torch.randn(adj.shape[0],adj.shape[1])
+        zero_vec=torch.zeros(adj.shape[0],adj.shape[1])
+        self.attention=torch.where(adj > 0, rand_vec, zero_vec)
+
+        #self.attention =adj.cuda()
 
         self.dropout=dropout
         self.concat=concat
