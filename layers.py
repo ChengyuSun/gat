@@ -11,7 +11,7 @@ class MyLayer(nn.Module):
         self.W = nn.Parameter(torch.zeros(size=(in_features, out_features)))
         nn.init.xavier_uniform_(self.W.data, gain=1.414)
 
-        self.attention= entropy_attention.cuda()
+        self.attention= nn.Parameter(entropy_attention.cuda())
 
         self.dropout=dropout
         self.concat=concat
@@ -21,7 +21,7 @@ class MyLayer(nn.Module):
         h = torch.mm(input, self.W)
 
         attention = F.softmax(self.attention, dim=1)
-        #attention = F.dropout(attention, self.dropout, training=self.training)
+        attention = F.dropout(attention, self.dropout, training=self.training)
 
         h_prime = torch.matmul(attention, h)
         if self.concat:
