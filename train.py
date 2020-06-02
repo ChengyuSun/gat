@@ -182,6 +182,7 @@ for epoch in range(args.epochs):
         bad_counter = 0
     else:
         bad_counter += 1
+        os.remove('{}.pkl'.format(epoch))
 
     if bad_counter == args.patience:
         break
@@ -191,12 +192,12 @@ for epoch in range(args.epochs):
         epoch_nb = int(file.split('.')[0])
         if epoch_nb < best_epoch:
             os.remove(file)
-
-files = glob.glob('*.pkl')
-for file in files:
-    epoch_nb = int(file.split('.')[0])
-    if epoch_nb > best_epoch:
-        os.remove(file)
+#
+# files = glob.glob('*.pkl')
+# for file in files:
+#     epoch_nb = int(file.split('.')[0])
+#     if epoch_nb > best_epoch:
+#         os.remove(file)
 
 print("Optimization Finished!")
 print("Total time elapsed: {:.4f}s".format(time.time() - t_total))
@@ -207,5 +208,3 @@ model.load_state_dict(torch.load('{}.pkl'.format(best_epoch)))
 os.remove('{}.pkl'.format(best_epoch))
 # Testing
 acc=compute_test()
-with open('./cora_acc.txt', 'a+') as f:
-    f.write(str(args.dropout)+' '+str(args.lr)+' : '+str(acc) + '\n')

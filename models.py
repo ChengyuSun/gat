@@ -20,7 +20,7 @@ class GAT(nn.Module):
 
         #entropy--attention
         attentionlist=read_entropy_attention_list()
-        # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
+        #self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
 
         #adj_citeseer = read_txt()
