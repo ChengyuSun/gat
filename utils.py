@@ -136,19 +136,19 @@ def read_entropy_attention_list():
 
 
     entropy_attentions_list=[]
-    entropy_attention_1=torch.zeros(nodN,nodN)
+    #entropy_attention_1=torch.zeros(nodN,nodN)
     for i in range(8):
         print('attention '+str(i))
         entropy_attention_i = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN, nodN)
         #entropy_attention_i+=2*adj_cora
-        entropy_attention_1+=entropy_attention_i
+        #entropy_attention_1+=entropy_attention_i
         #entropy_attention_i=adj_cora
         #no attention(gnn)
         #entropy_attention_i = torch.where(adj_cora > 0, entropy_attention_i, zero_vec)
-        #entropy_attentions_list.append(entropy_attention_i)
+        entropy_attentions_list.append(entropy_attention_i)
 
-    entropy_attention_1+=adj_cora
-    entropy_attentions_list.append(entropy_attention_1)
+    #entropy_attention_1+=adj_cora
+    #entropy_attentions_list.append(entropy_attention_1)
 
     return entropy_attentions_list
 
