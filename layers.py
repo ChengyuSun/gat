@@ -138,7 +138,7 @@ class MotifentropyLayer(nn.Module):
         self.entropy_vector=entropy_vector.view(8,1).cuda()
 
         self.b=nn.Parameter(torch.zeros(size=(2*out_features,8)))
-        nn.init.xavier_uniform_(self.a.data, gain=1.414)
+        nn.init.xavier_uniform_(self.b.data, gain=1.414)
 
 
         # self.a = nn.Parameter(torch.zeros(size=(2*out_features, 1)))
