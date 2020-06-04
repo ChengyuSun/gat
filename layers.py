@@ -11,8 +11,8 @@ class MyLayer(nn.Module):
         self.W = nn.Parameter(torch.zeros(size=(in_features, out_features)))
         nn.init.xavier_uniform_(self.W.data, gain=1.414)
 
-        self.attention= nn.Parameter(entropy_attention.cuda())
-
+        #self.attention= nn.Parameter(entropy_attention.cuda())
+        self.attention=entropy_attention.cuda()
         self.dropout=dropout
         self.concat=concat
 
@@ -21,7 +21,7 @@ class MyLayer(nn.Module):
         h = torch.mm(input, self.W)
 
         attention = F.softmax(self.attention, dim=1)
-        attention = F.dropout(attention, self.dropout, training=self.training)
+        #attention = F.dropout(attention, self.dropout, training=self.training)
 
         h_prime = torch.matmul(attention, h)
         if self.concat:
@@ -80,7 +80,7 @@ class GraphAttentionLayer(nn.Module):
     Simple GAT layer, similar to https://arxiv.org/abs/1710.10903
     """
 
-    def __init__(self, in_features, out_features, dropout, alpha, concat=True):
+    def __init__(self, in_features, out_features, dropout, alpha ,concat=True):
         super(GraphAttentionLayer, self).__init__()
         self.dropout = dropout
         self.in_features = in_features

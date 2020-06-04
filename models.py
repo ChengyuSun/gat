@@ -15,17 +15,17 @@ class GAT(nn.Module):
         self.dropout = dropout
 
         #trainable--attention
-        # self.attentions = [GraphAttentionLayer(nfeat, nhid, dropout=dropout, alpha=alpha, concat=True) for _ in
-        #                    range(nheads)]
+        #self.attentions = [GraphAttentionLayer(nfeat, nhid, dropout=dropout, alpha=alpha, concat=True) for _ in
+         #                  range(nheads)]
 
         #entropy--attention
-        # attentionlist=read_entropy_attention_list()
-        # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
+        attentionlist=read_entropy_attention_list()
+        self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
         #motif-entropy
-        motif_entropy_list=read_entropy_vector_list()
-        self.attentions = [MotifentropyLayer(nfeat, nhid,dropout=dropout, alpha=alpha,
-                                             entropy_vector=motif_entropy_list[i],  concat=True) for i in range(nheads)]
+        # motif_entropy_list=read_entropy_vector_list()
+        # self.attentions = [MotifentropyLayer(nfeat, nhid,dropout=dropout, alpha=alpha,
+        #                                      entropy_vector=motif_entropy_list[i],  concat=True) for i in range(nheads)]
 
         #adj_citeseer = read_txt()
         #adj_cora=read_csv()
