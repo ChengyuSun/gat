@@ -3,9 +3,9 @@ sys.path.append('../')
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from layers import GraphAttentionLayer, SpGraphAttentionLayer,MyLayer,OneLayer,CovLayer
+from layers import GraphAttentionLayer, SpGraphAttentionLayer,MyLayer,OneLayer,CovLayer,MotifentropyLayer
 import numpy as np
-from utils import read_entropy_attention_list
+from utils import read_entropy_attention_list,read_entropy_vector_list
 from utils import read_csv
 from utils import read_txt
 class GAT(nn.Module):
@@ -19,9 +19,13 @@ class GAT(nn.Module):
         #                    range(nheads)]
 
         #entropy--attention
-        attentionlist=read_entropy_attention_list()
-        self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
+        # attentionlist=read_entropy_attention_list()
+        # self.attentions = [MyLayer(nfeat, nhid, attentionlist[i] ,dropout=dropout,concat=True) for i in range(nheads)]
 
+        #motif-entropy
+        motif_entropy_list=read_entropy_vector_list()
+        self.attentions = [MotifentropyLayer(nfeat, nhid,dropout=dropout, alpha=alpha,
+                                             entropy_vector=motif_entropy_list[i],  concat=True) for i in range(nheads)]
 
         #adj_citeseer = read_txt()
         #adj_cora=read_csv()

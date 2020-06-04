@@ -108,6 +108,21 @@ def read_txt(graphfile_txt='../edGNN_entropy/bin/preprocessed_data/citeseer/cite
     adj = torch.from_numpy(np.array(matrix))
     return adj
 
+
+def read_entropy_vector_list():
+    print('loading entropy vectors')
+    #cora
+    entropy_vector=[5291.57282775566, 5930.17339392563, 35919.4807569822,
+            3996.33297329960, 5985.41022812210, 45880.6612182431, 2563.09578325316, 3762.89089310395]
+    entropy_vector_tensor=torch.from_numpy(np.array(entropy_vector)).float()
+    motif_num=[1071, 549, 1630, 320, 380, 1489, 220, 249]
+
+    out_list=[]
+    for i in range(8):
+        out_list.append(motif_num[i]*entropy_vector_tensor)
+
+    return out_list
+
 def read_entropy_attention_list():
     print('loading entropy as attention...')
 
@@ -138,7 +153,6 @@ def read_entropy_attention_list():
     entropy_attentions_list=[]
     #entropy_attention_1=torch.zeros(nodN,nodN)
     for i in range(8):
-        print('attention '+str(i))
         entropy_attention_i = torch.from_numpy(np.array(entropy_attentions_all[:, i])).float().view(nodN, nodN)
         #entropy_attention_i+=2*adj_cora
         #entropy_attention_1+=entropy_attention_i
